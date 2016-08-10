@@ -1,0 +1,673 @@
+%====================================================================
+% LI GROUP GENERAL LATEX TEMPLATE
+%=====================================================================
+
+%------------------------------------------------------------------------------------------------------------------------
+% PREAMBLE AND DOCUMENT FORMATTING
+%------------------------------------------------------------------------------------------------------------------------
+\documentclass[12pt]{article}
+
+% PACKAGES
+\usepackage{amsmath}			% for equation typesetting
+\usepackage{amssymb}			% for equation typesetting
+\usepackage{bm}
+\usepackage{setspace}			% for 1.5 and double spacing
+\usepackage{overcite}			% for superscripted in-text citations
+\usepackage{url}
+\usepackage{graphicx}			% main graphics package
+\usepackage{wrapfig}			% allow text wrapping around figures
+\usepackage[dvipsnames]{xcolor}	% for inserting colored text
+%\usepackage{times}			% uncomment to use Times New Roman font
+\usepackage[user=FE]{trkchg}	% % provides commands for tracking changes in compiled document
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\titleformat*{\subsubsection}{\itshape\subsubsectionfont}
+%\renewcommand{\arraystretch}{1.5}
+
+% DOCUMENT FORMATTING
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry} 	% set page margins
+\onehalfspacing										% uncomment for 1.5 spacing
+%\doublespacing										% uncomment for double spacing
+\usepackage{comment}
+
+% BIBLIOGRAPHY FORMATTING
+%\bibliographystyle{aip} 								% insert bibliography style file here
+%\usepackage{subfig}%per affiancare le immagini
+
+% CAPTION FORMATTING
+\usepackage[font=footnotesize,labelfont=bf,labelsep=period,width=0.75\textwidth]{caption} 	% format single-image captions and table titles
+\usepackage[font=footnotesize,labelfont=bf,labelsep=period]{subcaption} 				% format subfigure captions
+\DeclareCaptionSubType*[arabic]{figure} 										% use arabic numerals for subfigure captions (e.g., 1.1, 1.2, etc.)
+\DeclareCaptionLabelFormat{subfiglabel}{Figure #2} 								% append 'Figure' to subfigure captions (e.g., Figure 1.1, Figure 1.2, etc.)
+%\captionsetup[subfigure]{labelformat=subfiglabel,singlelinecheck=false} 					% format subfigure captions
+
+\graphicspath{{Figures/}}%per sistemare le immagini in una sottocartella
+
+
+\usepackage{multirow}%To write columns that span multiple rows
+
+\newcommand{\add}[1]{{#1}}
+\newcommand{\del}[1]{{\color{red} #1}}
+
+\newcommand{\e}[1]{\operatorname{e}^{#1}}
+\renewcommand{\d}{\operatorname{d}}
+\newcommand{\bra}[1]{\langle #1 \vert}
+\newcommand{\ket}[1]{\vert #1 \rangle}
+\newcommand{\tr}{\operatorname{Tr}}
+
+% CROSS-REFERENCE FORMATTING
+% For use with the cleveref package
+% Define the format of Figure, Table, Equation, and Section cross-references in the text
+\usepackage[capitalize]{cleveref}
+\crefname{figure}{Fig.}{Figs.}
+\Crefname{figure}{Figure}{Figures}
+\crefname{table}{Tab.}{Tabs.}
+\Crefname{table}{Table}{Tables}
+\crefname{equation}{Eq.}{Eqs.}
+\Crefname{equation}{Equation}{Equations}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+
+% USER-DEFINED COMMANDS
+%% General / Formatting
+\newcommand{\bd}[1]{\textbf{#1}} % bold text
+\newcommand{\subsubsubsection}[1]{\vspace{5pt}\noindent{\underline{\emph{#1}}}\vspace{4pt}} % subsubsubsection command
+%% Chemistry shortcuts
+\newcommand{\atom}[2]{#1$_{#2}$}										% subscripted atom symbol
+\newcommand{\term}[3]{{}^{#1}\text{#2}_{#3}}								% term (level) symbol
+%% Mathematical Shortcuts
+\newcommand{\pfrac}[2]{\frac{\partial #1}{\partial #2}} 						% partial derivative
+\newcommand{\difrac}[2]{\frac{d #1}{d #2}} 								% derivative
+\newcommand{\bpar}[1]{\left( #1 \right)} 									% big parentheses
+\newcommand{\bbra}[1]{\left[ #1 \right]} 									% big brackets
+\newcommand{\bbar}[1]{\left| #1 \right|} 									% big bars
+\newcommand{\braket}[2]{\langle #1| #2 \rangle} 	
+\newcommand{\psbar}[2]{\langle #1 | #2 \rangle} 			% physicists' notation single-bar integrals
+\newcommand{\csbar}[2]{\left( #1 | #2 \right)} 			% chemists' notation single-bar integrals
+\newcommand{\rdbar}[2]{\left( #1 || #2 \right)} 			% double-bar integrals round braket
+\newcommand{\dbar}[2]{\langle #1 || #2 \rangle} 			% double-bar integrals
+\newcommand{\innerop}[3]{\left\langle #1 \left\vert #2 \right\vert #3 \right\rangle} 	% operator matrix element
+\newcommand{\innersub}[4]{\langle \bd{#1}_{#2}, \bd{#3}_{#4} \rangle} 			% bracket with subscripts
+\newcommand{\half}{\frac{1}{2}} 										% 1/2
+\newcommand{\powfrac}[3]{\bpar{\frac{#1}{#2}}^{#3}}						% fraction raised to a power
+\newcommand{\ii}{\infty}												% infinity symbol
+\newcommand{\tquad}{\quad\quad\quad}									% triple-quad spacing
+\renewcommand{\Im}{\text{Im}}											% imaginary symbol
+\renewcommand{\Re}{\text{Re}}										% real symbol
+\newcommand{\dd}{\text{d}}
+\newcommand*{\Smo}[1]{\bm{\mathcal{S}}^\mathrm{#1}}
+\newcommand*{\DP}[1]{\Delta\mathbf{P}^\mathrm{#1}}
+\newcommand*{\Y}{\mathbf{Y}}
+\newcommand*{\X}{\mathbf{X}}
+
+%% Add your own commands below this line
+\newcommand{\highlight}[1]{\colorbox{yellow}{$\displaystyle #1$}}  % Highlight math
+
+\begin{document}
+
+\title{Two-Component Time-Dependent Density Functional Theory for the Excited States Calculations}
+\author{Franco Egidi, Giovanni Scalmani, Michael J. Frisch, Xiaosong Li$^*$ \\[12pt]
+\emph{Department of Chemistry, University of Washington, Seattle, WA 98195} \\[12pt]
+\texttt{email: xsli@uw.edu}}
+\maketitle
+
+
+\begin{abstract}
+We present a linear response formalism to model the electronic excitations of a non-collinear relativistic two-component reference modeled via Kohn-Sham density functional methods.
+We employ a general formulation of density functional kernels commonly used in non-relativistic collinear DFT, readapted to the general non-collinear case.
+This formalism covers both pure and hybrid functionals, as well as GGA and meta-GGA functionals, and can be applied to both open and closed shell systems.
+We employ a definition that generates a local non-zero torque on the spin magnetization, but still satisfies the zero-torque theorem globally.
+The formalism is applied to a few test cases to illustrate the capabilities of the method.
+\end{abstract}
+
+\pagebreak
+
+%%%%%%%
+%INTRO
+%%%%%%%
+\section{Introduction}
+In recent years we have witnessed an increasing research effort in the modeling of spin-related phenomena, which are at the basis of magnetic materials and spintronic devices.\cite{Sanvito11_3336,Sanvito05_335,Nagahama07_165202,Neuhauser05_204714}
+An accurate theoretical description of the variety of spin phenomena involved in these fields requires enough flexibility to allow the spin magnetization vector to move about and reorient itself along any axis.
+In some cases, the direction of the spin magnetization may not be the same at every point in space, a situation often referred to as non-collinear spin.
+This flexibility in the spin orientation is unfortunately not found in most common quantum chemical methods, which implicitly assume that the spin magnetization be uniformly oriented along an axis, conventionally taken to be the $z$ axis.
+Therefore, parallel developments of theoretical and computational methods specifically designed to address these situations are needed.
+
+Non-collinear models also have a prominent role in relativistic quantum chemical theory based on the Dirac equation.\cite{Dyall07_book,Reiher15_book}
+Relativistic effects are known to be of importance for the description of heavy elements, in which \textit{scalar} relativistic effects cause significant contractions of the core electron shells,\cite{Pyykko12_45} but they also introduce spin-spin and spin-orbit couplings in the Hamiltonian, whose effects can be observed directly even in light atoms in the fine structure splittings that occur in their ground and excited electronic states.
+While scalar relativistic calculations can be modeled using a collinear method, the introduction of spin-orbit couplings often requires this constrain to be relaxed so that a more complete description of the system can be achieved.
+
+Of all quantum chemical methods that are available today, Density Functional Theory (DFT) has become the method of choice for a wide array of quantum chemical applications for decades thanks to the its ability to offer a good compromise between accuracy and a low-scaling computational cost.
+It is therefore highly desirable to extend the method to the non-collinear framework.
+Unfortunately, density functionals commonly employed in quantum chemistry have been developed for collinear densities, therefore there is no straightforward way to employ them in non-collinear systems.
+Ideally, new density functionals specifically designed to take non-collinearity into account should be used, and some work has be done in this direction.\cite{Gross13_156401}
+It is however desirable to be able to use standard functionals, which have proved to yield accurate results in a wide variety of contexts and for the calculation of a multitude of molecular properties, and for which many benchmarks exist.
+
+Several formalisms addressing this problem have been proposed,\cite{vanWullen02_779,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Liu04_6658,Liu05_241102,Liu03_597,Liu05_054102} and in this work we extend a non-collinear DFT formalism previously applied for ground-state calculations\cite{Frisch07_125119,Frisch12_2193,Scuseria13_035117} to the modeling of excited states with the inclusion of relativistic effects treated by means of the exact two-component method (X2C).\cite{Liu05_241102,Peng06_044102,Saue07_064102,Peng09_031104,Reiher13_184105,Cheng07_104106}
+The paper is organized as follows: first we briefly present the two-component relativistic method employed, then we review the theory for the generalization of common density functional kernels to non-collinear densities. Finally, the method is applied to a few test cases.
+
+
+%%%%%%%
+%THEORY
+%%%%%%%
+\section{Theory}
+
+%DIRAC
+\subsection{Two-component relativistic Hamiltonian}
+In relativistic quantum chemistry, the Schr{\"{o}}dinger equation, both in its time-dependent and time-independent form, is replaced by the Dirac equation, in which the Dirac Hamiltonian has the following expression:\cite{Dyall07_book,Reiher15_book}
+\begin{equation}
+ {\mathcal{H}}_\mathrm{D} = \begin{pmatrix} V \sigma_0 & c\vec{\sigma}\cdot\vec{p} \\ c\vec{\sigma}\cdot\vec{p} & (V - 2mc^2) \sigma_0 \end{pmatrix}
+\label{eq:DiracH}
+\end{equation}
+where $V$ is the scalar potential, $\vec{\sigma}$ is a vector whose components are the Pauli matrices, and $\sigma_0$ is the rank-two identity matrix.
+The relativistic wave function is separated into the large and small components. In the non-relativistic limit the large component approaches the non-relativistic wave function while the small components vanishes.
+Each component is separated into a spin-up and spin-down part:
+\begin{gather}
+ \psi^\mathrm{4c} = \begin{pmatrix} \psi_\mathrm{L} \\ \psi_\mathrm{S} \end{pmatrix} \\
+ \psi_\mathrm{L} = \begin{pmatrix} \psi_\mathrm{L}^\alpha \\ \psi_\mathrm{L}^\beta \end{pmatrix} \quad;\quad
+ \psi_\mathrm{S} = \begin{pmatrix} \psi_\mathrm{S}^\alpha \\ \psi_\mathrm{S}^\beta \end{pmatrix}
+\end{gather}
+While the Dirac equation can be solved directly, it is often convenient to transform it into a form that is closer to its non-relativistic counterpart.
+This is achieved by means of a unitary transformation $\mathcal{U}$ such that:
+\begin{equation}
+\label{eq:4cto2c}
+ {\mathcal{U}} {\mathcal{H}}  {\mathcal{U}}^\dagger =
+  \begin{pmatrix} {H}_+ & \mathbf{0}_2 \\ \mathbf{0}_2 & {H}_- \end{pmatrix} \quad;\quad 
+ {\mathcal{U}} \begin{pmatrix} \psi_\mathrm{L} \\ \psi_\mathrm{S} \end{pmatrix} = \begin{pmatrix} \psi^\mathrm{2c} \\ 0 \end{pmatrix}
+\end{equation}
+The two-component transformed wavefunction is an eigenstate of the transformed Hamiltonian operator ${H}_+$.
+Given its two-component form, the transformed Dirac equation can be solved using techniques that are also employed in the case of non-collinear non-relativistic quantum chemistry.\cite{Liu04_6658,Liu05_241102,Liu03_597,Liu05_054102}
+In practice, however, the exact transformation $\mathcal{U}$ can usually not be found, and approximations are introduced for the decoupling of the large and small components.
+In this contribution we will employ the the Exact Two-Component method (X2C), where the appellative ``exact" refers to the fact that X2C is based on the exact diagonalization of the one-electron four-component Hamiltonian,\cite{Liu05_241102,Peng06_044102,Saue07_064102,Peng09_031104,Reiher13_184105,Cheng07_104106} though the term X2C can also be used more in general to describe methods in which an effective Hamiltonian, such as a mean-field Dirac-Fock operator, is diagonalized to obtain a suitable two-component one-electron operator.\cite{Reiher13_184105,Saue11_3077,Liu10_1679,Liu14_59}
+A very common approximation is to neglect the transformation of the two-electron terms of the Dirac Hamiltonian.
+This approach greatly reduces the computational cost associated with the transformation, but it neglects two-electron spin-orbit terms, some of which are of the same order as their one-electron counterparts.
+Several types of such decoupling methods have been described over the years.
+Several methods have been proposed to partially account for the two-electron spin-orbit contributions,\cite{Gropen96_365,Cremer13_014106,Cheng07_104106,Peng06_044102}
+here we adopt a simple method that uses a fudging of the one-electron spin-orbit terms according to a scheme that takes the angular momentum of the functions into account.\cite{Boettger00_7809,Neese04_book541}
+
+
+
+%%%%
+%DFT
+%%%%
+\subsection{Two-component Density Functional Theory}
+Non-relativistic Density Functional Theory (DFT) is based on the Hohenberg-Kohn theorem and realized in quantum chemistry through the Kohn-Sham method.
+The same approach can be carried over to the relativistic regime provided the density be replaced with the ground-state four-current.\cite{Rajagopal78_L943,Vosko79_2977}
+While the exact relativistic functional may depend on the current, in most practical applications this dependence is dropped in favor of a simpler dependence on the electron density only.
+Even if the dependence of the functional on the current is dropped, density functionals commonly used in quantum chemistry implicitly assume that density be collinear, i.e.\ that the spin magnetization be oriented along the same axis (conventionally chosen to be the $z$ axis) at all points in space.
+This situation is almost always realized in the non-relativistic regime, with the exception of spin-frustrated systems, however the presence of spin-orbit couplings in the Dirac equation can cause the magnetization to assume a non-collinear configuration.
+The development of true non-collinear density functionals that depend on both the total density and the magnetization vector is an ongoing effort,\cite{Gross13_156401} however a common approach is to reformulate the density-dependence of collinear functionals in order to use them in non-collinear calculations.
+This allows one to benefit from the developments in the realm of collinear density functional theory made in the last decades for the description of electron correlation in non-relativistic systems.
+The following is based on recent developments in this field,\cite{vanWullen02_779,Frisch07_125119,Frisch12_2193,Scuseria13_035117} which are here extended to the response formalism, which involves second derivatives of the energy functional with respect to the density.
+
+In the two-component formalism the density is spin-blocked, and can be separated into total density $n$ and magnetization $\vec{m}$ contributions:
+\begin{equation}
+ \rho = \begin{pmatrix} \rho^{\alpha\alpha} & \rho^{\alpha\beta} \\ \rho^{\beta\alpha} & \rho^{\beta\beta} \end{pmatrix} =
+  \frac{1}{2}(n\sigma_0+\vec{m}\circ\vec{\sigma})
+\end{equation}
+The circle is used to denote a scalar product between two quantities in spin space.
+In general a density functional should be expected to depend on both the total density and magnetization $n$ and $\vec{m}$, though common density functionals usually only depend on $\rho^{\alpha\alpha}$ and $\rho^{\beta\alpha}$.
+In deriving linear response equation in the density functional methods, derivative of the functional with respect to the density must be evaluated. If the density is partitioned into total and magnetization contributions then the derivatives are similarly written as:
+\begin{equation}
+ \frac{\delta}{\delta\rho} = 
+  \begin{pmatrix} \frac{\delta}{\delta\rho^{\alpha\alpha}} & \frac{\delta}{\delta\rho^{\alpha\beta}} \\
+                  \frac{\delta}{\delta\rho^{\beta\alpha}}  & \frac{\delta}{\delta\rho^{\beta\beta}} \end{pmatrix}  
+  = \frac{\delta n}{\delta\rho}\frac{\delta}{\delta n} + \frac{\delta \vec{m}}{\delta\rho}\circ\frac{\delta}{\delta \vec{m}} = 
+    \sigma_0\frac{\delta}{\delta n} + \vec{\sigma}\circ\frac{\delta}{\delta\vec{m}}
+\end{equation}
+
+A pure functional would require only these two variables to be considered, however in general more complex density functionals which depend on the density gradients, Laplacian or kinetic energy densities may be employed to achieve more accurate results.
+In addition, a portion of Hartree-Fock exchange may be added for hybrid functionals.
+In order to make use of such functional forms in the general case of two-component calculations, functionals are redefined to depend on a set of auxiliary generalized variables which take the local orientation of the magnetization vector into account:\cite{Frisch12_2193}
+\begin{equation}
+\label{eq:Exc}
+ E_\mathrm{xc} = \int f(n_+,n_-,\gamma_{++},\gamma_{--},\gamma_{+-},\tau_+,\tau_-,\nabla^2n_+,\nabla^2n_-)\d\vec{r}
+\end{equation}
+where the generalized variables are defined as:\cite{Frisch07_125119,Frisch12_2193,Scuseria13_035117}
+\begin{equation}
+\label{eq:Uvar}
+\begin{split}
+ n_{\pm} &= \frac{1}{2}n \pm \frac{1}{2}\sqrt{\vec{m}\circ\vec{m}} \\
+ \gamma_{\pm\pm} &= \frac{1}{4}\vec{\nabla}n\cdot\vec{\nabla}n + \frac{1}{4}\vec{\nabla}\vec{m}\odot\vec{\nabla}\vec{m}
+  \pm \frac{f_\nabla}{2}\sqrt{\vec{\nabla}n\cdot\vec{\nabla}\vec{m}\circ\vec{\nabla}\vec{m}\cdot\vec{\nabla}n} \\
+ \gamma_{+-}     &= \frac{1}{4}\vec{\nabla}n\cdot\vec{\nabla}n - \frac{1}{4}\vec{\nabla}\vec{m}\odot\vec{\nabla}\vec{m} \\
+ \nabla^2n_{\pm} &= \frac{1}{2}\nabla^2n \pm \frac{f_{\nabla^2}}{2}\sqrt{\nabla^2\vec{m}\circ\nabla^2\vec{m}} \\
+ \tau_{\pm} &= \frac{1}{2}\tau \pm \frac{f_\tau}{2}\sqrt{\vec{u}\circ\vec{u}} \\
+ f_\nabla &= \operatorname{sgn}(\vec{\nabla}n\cdot\vec{\nabla}\vec{m}\circ\vec{m}) \\
+ f_{\nabla^2} &= \operatorname{sgn}(\nabla^2\vec{m}\circ\vec{m}) \\
+ f_\tau &= \operatorname{sgn}(\vec{u}\circ\vec{m})
+\end{split}
+\end{equation}
+where the symbols $\cdot$ and $\circ$ indicate a scalar product in spacial and spin space, respectively ($\odot$ being the combined product), and $\tau$ and $\vec{u}$ are the total and spin-separated kinetic energy densities, while sgn indicates the sign function.
+These definitions have the advantage of yielding an energy that is independent of the particular axis chosen for the global orientation of the magnetization and, in the absence of relativistic effects, an electronic density converged within an unrestricted Kohn-Sham regime yields a stationary state when employed in a two-component calculation as well, though relaxing the collinearity constraint may allow one to find a different stationary state with a lower energy.
+Other definitions have been proposed,\cite{Liu04_6658,Liu05_241102,Liu03_597,Liu05_054102} however our formalism has the advantage of exerting a non-zero local torque acting on the magnetization, while yielding a vanishing total torque,
+as expected from the exact functional.\cite{Gyorffy01_206403}
+
+
+%%%%%%%%%%%%%%%%
+%LINEAR RESPONSE
+%%%%%%%%%%%%%%%%%
+\subsection{Stability and Linear Response Formalism}
+We consider a molecular system subject to a small time-dependent external electric perturbation $\delta V_\mathrm{ext}(t)$.
+The time evolution of the density matrix is governed by the Schr{\"{o}}dinger equation:
+\begin{equation}
+\label{eq:PEvol}
+ i\hbar\frac{\partial}{\partial t}\rho= [F+\delta V_\mathrm{ext}(t),\rho]
+\end{equation}
+Where the two-component Kohn-Sham operator is given by:
+\begin{align}
+ F = h_\mathrm{2c} + J(n) + V_\mathrm{xc}(\rho)
+\end{align}
+The two-component one-electron Hamiltonian includes the kinetic energy and the electron-nuclei attraction terms, as well as the one-electron spin-orbit terms, and $V_\mathrm{ext}(t)$ is the time-dependent external perturbation.
+
+The time-dependent equation can be Fourier-transformed to the frequency domain, and then separated into orders.
+To first order:
+\begin{align}
+ \rho(\omega) &= \rho + \delta\rho(\omega) \\ 
+ i\hbar\delta\rho(\omega) &= [F,\delta\rho(\omega)] + [\delta F, \rho] + [\delta V_\mathrm{ext}(\omega), \rho]
+\end{align}
+The first order term of the Kohn-Sham operator $\delta F$ includes the density derivatives of the two electron terms:
+\begin{equation}
+ \delta F = \frac{\delta F}{\delta\rho}\delta\rho(\omega) =
+  \sigma_0\frac{\delta J}{\delta n}\delta\rho(\omega) + \frac{\delta^2 E_\mathrm{xc}}{\delta\rho\delta\rho} \delta\rho(\omega)
+\end{equation}
+The functional derivatives are evaluated using the unperturbed two-component ground-state density.
+
+To find the excitation energies and transition densities we must extract the poles and residues of the response equation. In the basis of the orthonormal ground-state molecular orbitals (MO) the linear response equations can be rearranged in a generalized eigenvalue form where only the occupied-virtual and virtual-occupied blocks are retained:
+\begin{equation}
+\label{eq:TDDFT}
+ \begin{pmatrix} \mathbf{A} & \mathbf{B} \\ \mathbf{B}^* & \mathbf{A}^* \end{pmatrix}
+ \begin{pmatrix} X \\ Y \end{pmatrix} = \omega\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+ \begin{pmatrix} X \\ Y \end{pmatrix}
+\end{equation}
+where $X$ and $Y$ represent the excitation and de-excitation blocks of the transition density, and the matrices $\mathbf{A}$ and $\mathbf{B}$ are defined as:
+\begin{align}
+ A_{ai,bj} &= \delta_{ab}\delta_{ij}(\varepsilon_a-\varepsilon_i) + K_{ai,bj} \\
+ B_{ai,bj} &= K_{ai,jb}
+\end{align}
+The coupling matrix $\mathbf{K}$ depends explicitly on the chosen exchange and correlation functionals. \cref{eq:TDDFT} is a complex non-Hermitian eigenvalue equation of dimension $2\mathcal{OV}$, which is usually solved numerically in a reduced space using the Davidson algorithm,\cite{Davidson_1975} since only the lowest few excited states are often needed.
+Higher energy states can be similarly obtained by using energy-windowed algorithms.\cite{Li15_4146,Li11_3540}
+
+In addition to the excited state energies, a similar formalism can be employed to verify that the stationary state found during the SCF corresponds to a true minimum as opposed to a saddle point. The equation that needs to be solved differs only in the metric on the right-hand-side of \cref{eq:TDDFT} and can be solved using similar methods:\cite{Pople77_3045}
+\begin{equation}
+\label{eq:stab}
+ \begin{pmatrix} \mathbf{A} & \mathbf{B} \\ \mathbf{B}^* & \mathbf{A}^* \end{pmatrix}
+ \begin{pmatrix} D \\ D^* \end{pmatrix} = \lambda\begin{pmatrix} D \\ D^* \end{pmatrix}
+\end{equation}
+The presence of negative eigenvalues $\lambda$ is then symptomatic of an unstable ground-state, while the corresponding eigenvector gives a direction along which the ground-state density can be rotated to decrease the energy.
+
+Given the high dimensionality shared by both the linear response and stability problems, the matrix vector products in \cref{eq:TDDFT} and \cref{eq:stab} are performed in a direct fashion in the AO basis in which the coupling matrix has the following expression: 
+\begin{equation}
+\label{eq:KAO}
+ K_{\mu\nu,\kappa\lambda} = (\mu\nu\vert\kappa\lambda) + \frac{\partial^2 E_\mathrm{xc}}{\partial P_{\nu\mu}\partial P_{\lambda\kappa}}
+\end{equation}
+The details of the efficient direct contraction algorithm of the Coulomb and HF exchange terms have been discussed in an earlier contribution.\cite{Li16_3711}
+In the following section the contraction of the energy second derivative with the non-collinear transition density is illustrated in detail.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%FUNCTIONAL DERIVATIVES
+%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derivative of the exchange-correlation term}
+The expression for the coupling matrix in \cref{eq:KAO} shows that we require the direct contraction of the derivatives of the exchange-correlation energy with respect to the density with the transition density in $X$ and $Y$ transformed into the AO basis.
+The density matrix, however, is spin-blocked and because common density functionals devised to treat systems with a collinear magnetization typically only depend on the diagonal spin-blocks $\mathbf{P}^{\alpha\alpha}$ and $\mathbf{P}^{\beta\beta}$ (or equivalently with the total and collinear spin densities $\mathbf{N}$ and $\mathbf{M}_z$), we take the derivative with respect to the auxiliary variables in \cref{eq:Uvar}, and then use the chain rule to relate them back to the original density components.
+\cref{eq:KAO} in its simplicity hides many of the details that must be taken into consideration in the implementation of the method.
+Firstly, the density matrices involved in the differentiation of the exchange-correlation energy are two-component quantities, and they should be separated into their spin components when performing the contraction.
+There are therefore sixteen types of derivatives to consider:
+\begin{equation}
+ \frac{\partial^2 E_\mathrm{xc}}{\partial P_{\nu\mu}\partial P_{\lambda\kappa}} = 
+  \sigma_0\otimes\sigma_0\frac{\partial^2 E_\mathrm{xc}}{\partial N_{\nu\mu}\partial N_{\lambda\kappa}} +
+  \sigma_0\otimes\sigma_x\frac{\partial^2 E_\mathrm{xc}}{\partial N_{\nu\mu}\partial {M_x}_{\lambda\kappa}} + \dots +
+  \sigma_z\otimes\sigma_z\frac{\partial^2 E_\mathrm{xc}}{\partial {M_z}_{\nu\mu}\partial {M_z}_{\lambda\kappa}}
+\end{equation}
+Each of these terms are contracted with the appropriate components of the transition density $\mathbf{T}$ obtained by transforming the guess vector $\ket{X\,Y}$ into the AO basis.
+The latter is similarly expanded into the different spin components, and the real/imaginary (R/S) and symmetric/antisymmetric (S/A) parts are separated as well:
+\begin{equation}
+\begin{split}
+ \mathbf{T} \rightarrow&\,
+   \mathbf{T}^{\alpha\alpha\mathrm{RS}},\,\mathbf{T}^{\alpha\alpha\mathrm{IS}},\,\mathbf{T}^{\alpha\beta\mathrm{RS}},\,\mathbf{T}^{\alpha\beta\mathrm{IS}},\,\mathbf{T}^{\alpha\alpha\mathrm{RA}},\,\mathbf{T}^{\alpha\alpha\mathrm{IA}},\,\mathbf{T}^{\alpha\beta\mathrm{RA}},\,\mathbf{T}^{\alpha\beta\mathrm{IA}}, \\
+ &\, \mathbf{T}^{\beta\beta\mathrm{RS}},\,\mathbf{T}^{\beta\beta\mathrm{IS}},\,\mathbf{T}^{\beta\alpha\mathrm{RS}},\,\mathbf{T}^{\beta\alpha\mathrm{IS}},\,\mathbf{T}^{\beta\beta\mathrm{RA}},\,\mathbf{T}^{\beta\beta\mathrm{IA}},\,\mathbf{T}^{\beta\alpha\mathrm{RA}},\,\mathbf{T}^{\beta\alpha\mathrm{IA}}
+\end{split}
+\end{equation}
+It should be noted that the functional second derivatives are always real (for real basis functions) even though they are contracted with both the real and imaginary parts of the transition density. In addition, only the Hartree-Fock exchange for hybrid functionals needs to be contracted with the antisymmetric components, as any exchange or correlation functional of the density only gives a non-zero contribution when contracted with the symmetric parts.
+For these reasons the separation of the density into specific components can afford significant computational savings.
+
+%Secondly, though the exchange-correlation energy is a real quantity, the transition density is complex in general, therefore we formally take the derivatives with respect to the real and imaginary parts of the density, which are then contracted with the corresponding transition density.
+The derivatives of the exchange-correlation energy are evaluated by integrating the derivatives of the functional in \cref{eq:Exc} over a numerical grid.
+In the following we denote a generic auxiliary variable in \cref{eq:Uvar} as $u_i$ and a density component as $v_i$.
+With an implied sum over repeated indices, the functional first and second derivatives are then expressed as:
+\begin{gather}
+ \frac{\partial f}{\partial v_i} = \frac{\partial u_j}{\partial v_i}\frac{\partial f}{\partial u_j} \\
+ \frac{\partial^2 f}{\partial v_i\partial v_j} = \frac{\partial^2 u_k}{\partial v_i\partial v_j}\frac{\partial f}{\partial u_k} +
+  \frac{\partial u_k}{\partial v_i}\frac{\partial u_l}{\partial v_j}\frac{\partial^2 f}{\partial u_k\partial u_j}
+\end{gather}
+The chain rule derivatives are easily derived from the definitions of the auxiliary variables, while expressions for the functional derivatives with respect to the auxiliary variables take the same form found in collinear cases.
+We implemented these equation for wide class of functionals, including GGAs and functionals which depend on the Laplacian and kinetic energy densities.
+Complications may however arise in cases where the magnetization is zero or close to zero.
+This can be seen by looking at the expression for some of the chain rule derivatives:
+\begin{gather}
+ \frac{\partial n_+}{\partial\vec{m}} = \frac{\vec{m}}{m} \\
+ \frac{\partial^2 n_+}{\partial\vec{m}\partial\vec{m}} = \frac{1}{m}\left(1-\frac{\vec{m}\otimes\vec{m}}{m^2}\right)
+ \label{eq:chrule}
+\end{gather}
+The first equation gives a unit vector oriented along the direction of the magnetization.
+When the latter is close to zero, however, its direction is ill-defined, a problem that is exacerbated by the limited numerical precision afforded by the machine environment.
+
+This problem can be understood by imagining a closed shell system in which the length of the magnetization vector is below a threshold, but the single cartesian components can assume any small value (within machine precision), therefore the direction of the magnetization vector at every point in space is essentially randomized,
+and any such configuration would yield the same energy.
+The specific situation of a perfectly closed shell system could be addressed by assuming no magnetization from the beginning in the definition of the functional dependence, or collect terms that approach specific values in the limit of zero magnetization both in the first and second derivatives (see for instance Ziegler et al.\cite{Ziegler04_12191,Baerends05_204103,Ziegler07_5270}).
+In this work, however, we wish to develop a general method that is applicable for any reference state, both open and closed shell, and in which the magnetization may possibly be zero in some regions of space, and non-zero in others.
+A crucial aspect of the development is ensuring that the first and second functional derivatives be numerically stable, even though the direction of the magnetization may be highly discontinuous in regions where the latter is small.
+
+First derivatives are needed in the case of ground-state calculation as well since they are necessary to evaluate the Kohn-Sham operator, however in this case the derivative terms can be rearranged so that in regions where the magnetization is small, the ill-defined terms multiply quantities that approach zero, thereby yielding a numerically stable energy derivative.
+The same however cannot be achieved for the second derivative terms.
+As can be seen in \cref{eq:chrule} the term approaches infinity for small $\vec{m}$, though it gives a finite contribution because it multiplies a combination of functional derivative terms that approaches zero. One such term is, for instance:
+\begin{equation}
+ \frac{1}{m}\left(1-\frac{\vec{m}\otimes\vec{m}}{m^2}\right)\left(\frac{\partial f}{\partial n_+} - \frac{\partial f}{\partial n_-}\right)
+\end{equation}
+The limited machine precision however limits the accuracy of the difference that appears in this equation, therefore a different approach is required.
+We chose to redefine the auxiliary variables solely in regions where the magnetization is below a threshold (we chose $10^{-12}$) to give numerically stable derivatives.
+An obvious choice is to use a definition that is linear in the magnetization components, so if we define the sum of the three components as $m_s=\frac{1}{3}(m_x+m_y+m_z)$ and $u_s=\frac{1}{3}(u_x+u_y+u_z)$ we can write the following alternative definitions.
+\begin{equation}
+ \label{eq:alternate}
+ \begin{split}
+ n_{\pm} &= \frac{1}{2}n \pm \frac{1}{2}m_s  \\
+ \gamma_{\pm\pm} &= \frac{1}{4}\vec{\nabla}n\cdot\vec{\nabla}n + \frac{1}{4}\vec{\nabla}\vec{m}\odot\vec{\nabla}\vec{m}
+  \pm \frac{f_\nabla}{2}\vec{\nabla}n\cdot\vec{\nabla}m_s \\
+ \gamma_{+-}     &= \frac{1}{4}\vec{\nabla}n\cdot\vec{\nabla}n - \frac{1}{4}\vec{\nabla}\vec{m}\odot\vec{\nabla}\vec{m} \\
+ \tau_{\pm} &= \frac{1}{2}\tau \pm \frac{f_\tau}{2}u_s
+ \end{split}
+\end{equation}
+The advantage of this formulation is the absence of square-root terms that cause the presence of near-zero denominators in the chain rule, while approaching the correct limit for zero magnetization.
+This alternate definition does not in general satisfy the zero-torque-theorem, however because it is used only in regions where the magnetization is small, the theorem is still satisfied numerically.
+The validity of the present approximation has been tested on several systems, and results are outlined in the following sections.
+
+
+
+%%%%%%%%
+%RESULTS
+%%%%%%%%
+\section{Benchmark and Applications to Excited-State Atomic Fine Structures}
+All calculations were performed with a locally modified version of the Gaussian quantum chemistry program package.\cite{GDVI06}
+%The Sapporo DKH basis sets were employed in all cases.\cite{Koga03_85,Koga12_1124}
+Relativistic effects were accounted for by means of the X2C method.\cite{Liu05_241102,Peng06_044102,Saue07_064102,Peng09_031104,Reiher13_184105,Cheng07_104106}
+In order to partially account for two-electron spin-orbit interaction in the Hamiltonian, we employed a scheme based on the scaling of the nuclear charge according to the angular momenta.\cite{Boettger00_7809}
+The atomic nuclei, rather than being treated as point charges, were described using $s$-type functions.\cite{Dyall97_207,Saue98_920}
+The stability of the ground state wave function was also tested before linear response calculations were performed.
+For the various examples we used the LSDA,\cite{Kohn64_B864,Nusair80_1200} BLYP,\cite{Becke88_3098,Parr88_785,Preuss89_200} B3LYP,\cite{Becke93_5648,Parr88_785} PBE,\cite{Ernzerhof96_3865} PBE0,\cite{Barone99_6158} TPSS,\cite{Scuseria03_146401} M06-2X,\cite{Truhlar08_215} and M06-HF\cite{Truhlar06_5121,Truhlar06_13126} functionals.
+
+
+
+\subsection{Dilithium}
+To illustrate the characteristics of the method we present in this section results on the dilithium molecule.
+It is well known that methods that restrict the spin pairing of the electrons, such as Restricted Hartree-Fock (RHF) and its Kohn-Sham equivalents, cannot be used to produce potential energy surfaces of dissociating systems correctly, as usually the system is in a singlet state at the equilibrium geometry, but as bonds are broken the triplet state becomes more stable.
+Being able to employ an unrestricted reference is helpful in these cases.
+Just like in the Unrestricted Hartree-Fock (UHF) method, however, a non-zero spin multiplicity in the single-determinant ground state causes the excited states to be spin-contaminated,\cite{Casida09_60} therefore states with the same multiplicity but different spin projections can have, in general, different energies, contrary to what would be expected.
+As a simple model system to study the effect of bond-breaking on the excited states computed via linear response we calculated the energies of the lowest excited states using the B3LYP functional, and included relativistic effects in the description.
+Since lithium is a very light atom, spin-orbit couplings are too small to cause a significant degree of non-collinearity, however it is still an interesting system to study because, as the bond breaks, it undergoes a continuous transition from a closed shell to an open shell system.
+This means that at equilibrium the auxiliary variables are defined according to \cref{eq:alternate}, while after the bond is broken they automatically revert to the original definition, in \cref{eq:Uvar}.
+Even though we are switching between two distinct definitions of the auxiliary variables
+, we expect to obtain the same results as in a collinear Unrestricted TDDFT calculation, without artificial discontinuities introduced by the changing variable definitions.
+The results are shown in \cref{fg:Li2PES}.
+At low interatomic distances the system is essentially closed shell, with $^1\Sigma_g$ being the ground state, and the excited states have clearly defined symmetries and spin multiplicities.
+At a distance of 3.8~\r{A} the singlet and triplet states intersect, and the flat line in the plot represents two zero-energy excitations corresponding to the other two spin-projections of the triplet ground-state, while the energy of the singlet state rises.
+The other excited states also start out as being separated into different symmetries and spin-multiplicities, but at higher interatomic distances spin contamination means that the multiplicity of the states is no longer exactly defined.
+In addition, the density matrix breaks symmetry, compromising the assignment of the states.
+Nonetheless, the excited state potential energy surfaces obtained with the 2c-B3LYP method match the ones obtained using the standard UB3LYP shown in  \cref{fg:Li2UPES}, with the exception that in the latter we do not converge spin-flip transitions, therefore some of the curves in \cref{fg:Li2PES} are missing in \cref{fg:Li2UPES}.
+The absence of spin-flip transitions in the UB3LYP results is also reflected in the number of degenerate states for each curve (indicated by numbers in parenthesis).
+Whereas in the two-component results most curves consist of multiple degenerate states, in the UB3LYP results only the highest-energy state is doubly degenerate (due to symmetry, not spin multiplicity).
+The higher number of states in the two-component spectrum is a source of increased computational cost when compared with the corresponding collinear method.
+
+\begin{figure}
+ \caption{2c-B3LYP excitation energies at different Li-Li distances. Numbers in parenthesis indicate degeneracy.}
+ \centering\includegraphics[width=0.6\textwidth]{Li2_ExcPES.pdf}
+ \label{fg:Li2PES}
+\end{figure}
+
+\begin{figure}
+ \caption{UB3LYP excitation energies at different Li-Li distances. Numbers in parenthesis indicate degeneracy.}
+ \centering\includegraphics[width=0.6\textwidth]{Li2_UExcPES.pdf}
+ \label{fg:Li2UPES}
+\end{figure}
+
+
+\subsection{Trihydrogen}
+In this section we analyze the first excited states of trihydrogen, a model system specifically chosen for its ability to support non-collinear states even in the absence of relativistic effects,\cite{Li15_154109} which were not therefore included.
+We consider this molecule in an equilateral triangular geometry (D$_{3h}$ symmetry), with a bond distance of 1~\r{A}.
+For this simple test case the PBE0 functional and the 6-31G(d,p) basis set were employed.
+The non-collinear ground state was obtained by first converging the collinear quartet state, followed by a non-collinear stability calculation and reoptimization.
+This approach has proven necessary in this case in order to obtain the non-collinear solution, which does have a lower energy compared to the collinear one.
+We then performed a linear response calculation to obtain the excitation energies and densities.
+The non-collinearity of each electronic state can be appreciated by using a Hirshfeld charge partition\cite{Hirshfeld77_129} to assign a magnetization vector to each atom: in a collinear solution all vectors would be oriented along the same direction.
+For the excited state we can perform a similar analysis by evaluating an unrelaxed excited state density matrix defined as follows:\cite{Yeager82_69,Casida09_60,Casida09_3}0
+\begin{equation}
+ P_{qp}^\mathrm{exc} %= P_{qp}^0 + \frac{\partial \omega}{\partial h_{pq}}
+                     = P_{qp}^0 + \sum_i^\mathrm{occ} (X_{pi}^*X_{qi}+Y_{qi}^*Y_{pi})-\sum_a^\mathrm{vir} (X_{aq}^*X_{ap}+Y_{ap}^*Y_{aq})
+\end{equation}
+Where $\mathbf{P}^0$ is the ground-state density while $X$ and $Y$ are the excitation and de-excitation amplitudes.
+This allows us to visualize the change in magnetization upon excitation in a simple way.
+The magnetization for the ground state and the first eleven excited states can be seen in \cref{fg:H3mag}.
+The ground state magnetization appears to be arranged in a spiral configuration while the first three ``excited" states actually have almost null excitation energies and therefore can be considered to be degenerate with it, and they are also all non-collinear in nature.
+Excited states 4 and 5 have an excitation energy of 10.9~eV and are degenerate, with their magnetization vectors arranged in a spiral similarly to the ground state.
+States 6 and 7 are instead mostly collinear with the magnetization vectors oriented in opposite directions.
+The excitation energy for these states is 11.6~eV and is close to the energy difference between the computed Self-Consistent Field (SCF) energies of the non-collinear ground state and the perfectly collinear quartet state obtained using a standard Unrestricted Kohn-Sham calculation ($\Delta_\mathrm{SCF}E = 9.6$~eV).
+Next we find two more non-collinear (8 and 9) and quasi-collinear (10 and 11) states.
+
+
+
+
+\begin{figure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_GS.png}
+  \caption{Ground state}\label{fg:H3magGS}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES01.png}
+  \caption{0.0}\label{fg:H3magES01}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES02.png}
+  \caption{0.0}\label{fg:H3magES02}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES03.png}
+  \caption{0.0}\label{fg:H3magES03}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES04.png}
+  \caption{10.9}\label{fg:H3magES04}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES05.png}
+  \caption{10.9}\label{fg:H3magES05}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES06.png}
+  \caption{11.6}\label{fg:H3magES06}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES07.png}
+  \caption{11.6}\label{fg:H3magES07}  
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES08.png}
+  \caption{14.5}\label{fg:H3magES08}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES09.png}
+  \caption{14.5}\label{fg:H3magES09}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES10.png}
+  \caption{15.2}\label{fg:H3magES10}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{H3_Mag_ES11.png}
+  \caption{15.2}\label{fg:H3magES11}  
+ \end{subfigure}
+ \caption{Magnetization vectors in the ground and excited states of H$_3$. The labels under each figure indicate the excitation energy in eV.}\label{fg:H3mag}
+\end{figure}
+
+
+%We computed some of the lowest excited states of the system using a variety of functionals of different types, including pure functionals (LSDA, PBE, BLYP) and hybrid (B3LYP, PBE0).
+%The results are collected in table \cref{tb:li3}.
+%To make meaningful comparisons between results obtained with different functionals it is necessary to assign the transitions.
+%This was done by visual inspection of the orbital contributions to the transition density with the highest coefficients for each excitation.
+%We note that the complex spinor orbitals we employ do not have a single numerical value associated with each point in space, therefore they can't be directly visualized.
+%Instead, we plot the modulus of each orbital $C=\sqrt{{C^\alpha}^* C^\alpha + {C^\beta}^* C^\beta}$.
+%This method allows us to produce meaningful maps that can be used to assign the transition for the purpose of comparing results from different functionals, however we lose all information about the complex phase, as well as information about the spin components of each orbital.
+%\cref{fg:li3orbs} shows the B3LYP orbitals involved in the transitions in \cref{tb:li3} (only one representative orbital for every quasi-degenerate pair is shown).
+%The orbitals for the other functionals are visually very similar, therefore we do not include them in the figure.
+%The results show that functionals of very different nature yield results that are rather similar, notwithstanding the differences in the functional kernels.
+
+\begin{comment}
+\begin{figure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{b3lyp_H-1.jpg}
+  \caption{a}\label{fg:li3orbsa}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{b3lyp_H-0.jpg}
+  \caption{b}\label{fg:li3orbsb}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{b3lyp_L+2.jpg}
+  \caption{c}\label{fg:li3orbsc}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{b3lyp_L+3.jpg}
+  \caption{d}\label{fg:li3orbsd}
+ \end{subfigure}
+ \begin{subfigure}[b]{.5\linewidth}
+  \centering\includegraphics[width=0.4\textwidth]{b3lyp_L+5.jpg}
+  \caption{e}\label{fg:li3orbse}
+ \end{subfigure}
+ \caption{Orbitals of Li$_3$}\label{fg:li3orbs}
+\end{figure}
+
+\begin{table}[htbp]
+ \centering
+ \caption{Excitation energies (in eV) corresponding to some of the lowest excited states of trilithium computed with different functionals. The transitions are classified according to the types of orbitals involved, as shown in \cref{fg:li3orbs}.}
+ \begin{tabular}{lcccccc}
+  \hline
+  Orbitals          &  LSDA  &  PBE   &  BLYP  & B3LYP  &  PBE0  & tau-func, meta-GGA \\ \hline
+  b$\rightarrow$d   & 0.632  & 0.632  & 0.709  & 0.679  & 0.638  &    \\
+  b$\rightarrow$e   & 1.153  & 1.155  & 1.139  & 1.140  & 1.219  &    \\
+  a$\rightarrow$c   & 1.318  & 1.292  & 1.166  & 1.283  & 1.319  &    \\ 
+  a$\rightarrow$d   & 1.658  & 1.629  & 1.688  & 1.810  & 1.647  &    \\ \hline
+ \end{tabular}
+ \label{tb:li3}
+\end{table}
+\end{comment}
+
+\subsection{Uranyl ion}
+In this section we turn our attention to a more realistic and chemically interesting system, and present results on the lowest-energy excitations of the uranyl(IV) ion UO$_2^{2+}$.
+This is a linear system that has been studied in earlier computational works using different electronic structure methods, including methods employing some form of treatment of spin-orbit couplings.\cite{Li16_3711,Saue09_2091,Baerends07_194311,Wahlgren07_214302,Pitzer99_6880,vanBesien05_204309}
+This system has an even number of electrons, which would give a singlet ground state in a non-relativistic framework.
+In practice, when spin-orbit couplings are introduced in the two-component non-collinear formalism, the variational optimization of the ground state Kohn-Sham determinant yields a state with a non-zero total spin expectation value.
+Spin-orbit couplings also cause splittings in the excited states, which are no longer eigenstates of both the spin and angular momentum components along the internuclear axis.
+\Cref{tab:uo2} collects the results obtained using different functionals, as well as previously published results obtained using the CASPT2 and the LR-CCSD wavefunction methods.
+It can be seen that the results cluster according to the nature of the functional employed.
+Pure functionals tend to yield much lower excitation energies compared to all other functionals and to the wavefunction results.
+Among these, LSDA stands out, BLYP and PBE give very similar results, while the $\tau$-dependent TPSS differs slightly more.
+The inclusion of Hartree-Fock exchange has a dramatic effect on the excitation energies, increasing their numerical values significantly.
+The results obtained with B3LYP and PBE0 are quite similar, while M062X yields substantially higher excitation energies overall, likely owing to its higher percentage of Hartree-Fock exchange (0.54\,\%, compared to 20\,\% and 25\,\% for B3LYP and PBE0, respectively).
+The M06HF functional has 100\,\% HF exchange, and gives the highest excitation energies overall.
+When compared with the published wavefunction methods, M062X seems to give results that more closely fall within the interval defined by the CASPT2\cite{vanBesien05_204309} and LR-CCSD\cite{Wahlgren07_214302} excitation energies.
+
+
+
+\begin{comment}
+\begin{table}[htbp]
+ \centering
+ \caption{Calculated lowest excited state energies (in eV) of the uranyl(IV) cation.}
+ \begin{tabular}{cccc}
+  \hline
+  State & LR-X2C & CASPT2\cite{vanBesien05_204309} & LR-CCSD\cite{Wahlgren07_214302} \\ \hline
+  2$_g$ & 2.15      & 2.38   & 2.83    \\
+  1$_g$ & 2.31      & 2.49   & 2.85    \\
+  3$_g$ & 2.56      & 2.51   & 2.96    \\
+  2$_g$ & 2.73      & 2.77   & 3.13    \\
+  4$_g$ & 3.11      & 3.15   & 3.45    \\
+  3$_g$ & 3.38      & 3.26   & 3.60    \\
+  2$_g$ & 3.96      & 3.61   & 4.01    \\
+  1$_g$ & 4.21      & 3.88   & 4.30    \\
+  \hline
+ \end{tabular}
+ \label{tab:uo2}
+\end{table}
+
+\begin{table}[htbp]
+ \centering
+ \caption{Calculated lowest excited state energies (in eV) of the uranyl(IV) cation.}
+ \begin{tabular}{ccccccccccc}
+  \hline
+  State & LSDA   & BLYP   & PBE   & TPSS   & B3LYP   & PBE0    & M062X   & M06HF      & CASPT2\cite{vanBesien05_204309} & LR-CCSD\cite{Wahlgren07_214302} \\ \hline
+  2$_g$ & 1.41   & 1.22   & 1.18  & 1.15   & 1.61    & 1.63    & 2.45    & 3.21       & 2.38   & 2.83    \\
+  1$_g$ & 1.57   & 1.40   & 1.37  & 1.35   & 1.78    & 1.82    & 2.58    & 3.21       & 2.49   & 2.85    \\
+  3$_g$ & 1.99   & 1.83   & 1.76  & 1.67   & 2.01    & 1.95    & 2.64    & 3.44       & 2.51   & 2.96    \\
+  2$_g$ & 2.21   & 2.06   & 2.00  & 1.91   & 2.26    & 2.22    & 2.93    & 3.68       & 2.77   & 3.13    \\
+  4$_g$ & 2.33   & 2.15   & 2.11  & 2.09   & 2.51    & 2.53    & 3.35    & 3.70       & 3.15   & 3.45    \\
+  3$_g$ & 2.43   & 2.41   & 2.37  & 2.30   & 2.68    & 2.64    & 3.39    & 3.93       & 3.26   & 3.60    \\
+  2$_g$ & 2.47   & 2.42   & 2.45  & 2.56   & 2.92    & 2.99    & 3.55    & 4.10       & 3.61   & 4.01    \\
+  1$_g$ & 2.57   & 2.46   & 2.50  & 2.56   & 3.31    & 3.53    & 4.00    & 4.22       & 3.88   & 4.30    \\
+  \hline
+ \end{tabular}
+ \label{tab:uo2}
+\end{table}
+\end{comment}
+
+\begin{table}[htbp]
+ \centering
+ \caption{Calculated lowest excited state energies (in eV) of the uranyl(IV) cation.}
+ \begin{tabular}{ccccccccccc}
+  \hline
+  LSDA   & BLYP   & PBE   & TPSS   & B3LYP   & PBE0    & M062X   & M06HF      & CASPT2\cite{vanBesien05_204309} & LR-CCSD\cite{Wahlgren07_214302} \\ \hline
+  1.41   & 1.22   & 1.18  & 1.15   & 1.61    & 1.63    & 2.45    & 3.21       & 2.38   & 2.83    \\
+  1.57   & 1.40   & 1.37  & 1.35   & 1.78    & 1.82    & 2.58    & 3.21       & 2.49   & 2.85    \\
+  1.99   & 1.83   & 1.76  & 1.67   & 2.01    & 1.95    & 2.64    & 3.44       & 2.51   & 2.96    \\
+  2.21   & 2.06   & 2.00  & 1.91   & 2.26    & 2.22    & 2.93    & 3.68       & 2.77   & 3.13    \\
+  2.33   & 2.15   & 2.11  & 2.09   & 2.51    & 2.53    & 3.35    & 3.70       & 3.15   & 3.45    \\
+  2.43   & 2.41   & 2.37  & 2.30   & 2.68    & 2.64    & 3.39    & 3.93       & 3.26   & 3.60    \\
+  2.47   & 2.42   & 2.45  & 2.56   & 2.92    & 2.99    & 3.55    & 4.10       & 3.61   & 4.01    \\
+  2.57   & 2.46   & 2.50  & 2.56   & 3.31    & 3.53    & 4.00    & 4.22       & 3.88   & 4.30    \\
+  \hline
+ \end{tabular}
+ \label{tab:uo2}
+\end{table}
+
+
+%%%%%%%%%%%%
+%CONCLUSIONS
+%%%%%%%%%%%%
+\section{Conclusions and Perspectives}
+We have presented a two-component density functional formalism for the evaluation of excited state energies and transition densities of systems with non-collinear magnetization, with the inclusion of relativistic effects using the X2C method.
+The method can also be used to test the stability of the converged ground-state with respect to any general perturbation.
+We employ a set of auxiliary variables that take the mixed-spin components of the density into account when computing the exchange-correlation part of the energy.
+With this method we are able to treat GGA and meta-GGA functionals, both pure and hybrid, as well as functionals that depend on the Kohn-Sham kinetic energy.
+For GGA functionals, the definitions of the auxiliary variables use both the parallel and perpendicular components of the magnetization gradient along the direction of the magnetization, which can cause a local torque on the magnetization, though globally the effect cancels out, as would be expected from the exact functional.
+
+This non-collinear linear-response formalism requires the differentiation of the functional with respect to the density and magnetization components, which causes numerical instabilities in regions where the magnetization is close to zero.
+We resolve these numerical problems by locally redefining the auxiliary variables in a way that removes the numerical instabilities.
+This approach extends the applicability of the method to all systems, regardless of the spin multiplicity of the reference state.
+
+Still more work is to be done in this field: our approach allows the use of any standard functional in the non-collinear and relativistic context, but further studies are needed to establish whether the accuracy of the results is affected compared to the non-collinear case.
+In addition, more excited state properties can be explored, such as absorption and emission (both fluorescence and phosphorescence) spectroscopies.
+Finally, the inclusion of spin-orbit couplings also opens the door for the description of phenomena such as the intersystem crossing between states of different spin-multiplicities.
+
+
+\section{Acknowledgements}
+The development of the linear response complex two-component DFT method presented in this work is funded by the US Department of Energy (DE-SC0006863).
+%The development of non-Hermitian energy-specific solver for obtaining the eigenfunction of the complex relativistic response function  is  supported by the US National Science Foundation (CHE-1565520 and CHE-1464497).
+
+
+\newpage
+\bibliographystyle{jcp}
+\bibliography{Journal_Short_Name.bib,Li_Group_References.bib,Egidi_References.bib,All_References.bib}
+
+\end{document}
