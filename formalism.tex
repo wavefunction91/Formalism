@@ -1,0 +1,294 @@
+%====================================================================
+% LI GROUP GENERAL LATEX TEMPLATE
+%=====================================================================
+
+%------------------------------------------------------------------------------------------------------------------------
+% PREAMBLE AND DOCUMENT FORMATTING
+%------------------------------------------------------------------------------------------------------------------------
+\documentclass[12pt]{article}
+
+% PACKAGES
+\usepackage{amsmath}			% for equation typesetting
+\usepackage{amssymb}			% for equation typesetting
+\usepackage{bm}                 % bold Greek letters
+\usepackage{setspace}			% for 1.5 and double spacing
+\usepackage{overcite}			% for superscripted in-text citations
+\usepackage{url}
+\usepackage{graphicx}			% main graphics package
+\usepackage{wrapfig}			% allow text wrapping around figures
+\usepackage[dvipsnames]{xcolor}	% for inserting colored text
+%\usepackage{times}			% uncomment to use Times New Roman font
+\usepackage[user=FE]{trkchg}	% % provides commands for tracking changes in compiled document
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\titleformat*{\subsubsection}{\itshape\subsubsectionfont}
+%\renewcommand{\arraystretch}{1.5}
+
+% DOCUMENT FORMATTING
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry} 	% set page margins
+\onehalfspacing										% uncomment for 1.5 spacing
+%\doublespacing										% uncomment for double spacing
+\usepackage{comment}
+
+% BIBLIOGRAPHY FORMATTING
+%\bibliographystyle{aip} 								% insert bibliography style file here
+%\usepackage{subfig}%per affiancare le immagini
+
+% CAPTION FORMATTING
+\usepackage[font=footnotesize,labelfont=bf,labelsep=period,width=0.75\textwidth]{caption} 	% format single-image captions and table titles
+\usepackage[font=footnotesize,labelfont=bf,labelsep=period]{subcaption} 				% format subfigure captions
+\DeclareCaptionSubType*[arabic]{figure} 										% use arabic numerals for subfigure captions (e.g., 1.1, 1.2, etc.)
+\DeclareCaptionLabelFormat{subfiglabel}{Figure #2} 								% append 'Figure' to subfigure captions (e.g., Figure 1.1, Figure 1.2, etc.)
+%\captionsetup[subfigure]{labelformat=subfiglabel,singlelinecheck=false} 					% format subfigure captions
+
+\graphicspath{{Figures/}}  % place figures ina subfolder
+
+\usepackage{multirow}%To write columns that span multiple rows
+
+\newcommand{\add}[1]{{#1}}
+\newcommand{\del}[1]{{\color{red} #1}}
+
+% CROSS-REFERENCE FORMATTING
+% For use with the cleveref package
+% Define the format of Figure, Table, Equation, and Section cross-references in the text
+\usepackage[capitalize]{cleveref}
+\crefname{figure}{Fig.}{Figs.}
+\Crefname{figure}{Figure}{Figures}
+\crefname{table}{Tab.}{Tabs.}
+\Crefname{table}{Table}{Tables}
+\crefname{equation}{Eq.}{Eqs.}
+\Crefname{equation}{Equation}{Equations}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+
+% USER-DEFINED COMMANDS
+%% Mathematical Shortcuts
+\newcommand{\pfrac}[2]{\frac{\partial #1}{\partial #2}} 				% partial derivative
+\newcommand{\difrac}[2]{\frac{d #1}{d #2}} 								% derivative
+\renewcommand{\Im}{\operatorname{Im}}									% imaginary symbol
+\renewcommand{\Re}{\operatorname{Re}}									% real symbol
+\newcommand{\dd}{\operatorname{d}}
+\newcommand{\e}[1]{\operatorname{e}^{#1}}
+\newcommand{\braket}[2]{\langle #1 \vert #2 \rangle} 	
+\newcommand{\bra}[1]{\langle #1 \vert}
+\newcommand{\ket}[1]{\vert #1 \rangle}
+\newcommand{\ev}[1]{\langle #1 \rangle}
+\newcommand{\evv}[1]{\langle\langle #1 \rangle\rangle}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\iu}{\ensuremath\mathrm{i}}
+
+\begin{document}
+
+%%%%%%%
+%TITLES
+%%%%%%%
+\title{Let's pray Huitzilopochtli this gets published}
+\author{David B. Williams-Young, Franco Egidi, Xiaosong Li$^*$ \\[12pt]
+\emph{Department of Chemistry, University of Washington, Seattle, WA 98195} \\[12pt]
+\texttt{email: xsli@uw.edu}}
+\maketitle
+
+\begin{abstract}
+ToBeDone
+\end{abstract}
+
+\pagebreak
+
+%%%%%%
+%INTRO
+%%%%%%
+\section{Introduction}
+TOBEDONE
+
+%%%%%%%
+%THEORY
+%%%%%%%
+\section{Theory and Formalism}
+In this section we revisit the equations commonly encountered in the context of single Slater determinant methods, whether Hartree-Fock (HF) or Kohn-Sham Density Functional Theory (DFT), by placing the emphasis on the separation of spacial and spin coordinates.
+NOTATION
+
+%Density Matrices
+\subsection{Charge and Magnetization Densities}
+The density matrix of a molecular system of $N$ electrons in a state $\Psi$ is defined as the following integral:
+\begin{equation}
+ \rho(x,x') = N\int\Psi(x,x_2,\dots,x_N)\Psi^*(x',x_2,\dots,x_N)\dd x_2,\dots,\dd x_N
+\end{equation}
+where $x=(\vec{r},\sigma)$ collects the spatial and spin coordinate of an electron.
+The diagonal part of the density matrix $\rho(x)=\rho(x,x)$ is often referred to as the density function.
+The presence of the spin variables within the density matrix can be made more explicit by switching to a matrix notation in terms of density components that span the space defined by the Pauli spin matrices:
+\begin{gather}
+ \rho = \begin{pmatrix} \rho^{\alpha\alpha} & \rho^{\alpha\beta} \\ \rho^{\beta\alpha} & \rho^{\beta\beta} \end{pmatrix} =
+  \frac{1}{2}(\sigma_0n+\vec{\sigma}\cdot\vec{m}) \\
+ \sigma_0 = \begin{pmatrix} 1 & 0    \\   0 & 1 \end{pmatrix} \quad;\quad
+ \sigma_x = \begin{pmatrix} 0 & 1    \\   1 & 0 \end{pmatrix} \quad;\quad
+ \sigma_y = \begin{pmatrix} 0 & -\iu \\ \iu & 0 \end{pmatrix} \quad;\quad
+ \sigma_z = \begin{pmatrix} 0 & 1    \\   1 & 0 \end{pmatrix}
+\end{gather}
+We have introduced the total charge and magnetization densities $n$ and $\vec{m}$, which depend only on the spatial electron coordinates.
+These quantities have dimensions of inverse volume, but their physical meaning can be restored by multiplying them with the appropriate factors:
+\begin{equation}
+ n\rightarrow -en \quad;\quad \vec{m}\rightarrow-\frac{1}{2}g_\mathrm{e}\mu_\mathrm{B}\vec{m}
+\end{equation}
+where $e$ is the elementary charge, $g_\mathrm{e}$ the electron g-factor, and $\mu_\mathrm{B}=e\hbar/2m_\mathrm{e}c$ is the Bohr magneton.
+This separation of the density is particularly convenient, as will be shown below, for it can greatly simplify the Self-Consistent Field equations.
+A similar partitioning can also be performed for those operators that possess a spin dependence.
+The non-relativistic molecular Hamiltonian, in absence of external fields, does not contain any spin operators, however if relativistic effects are introduced by means of ad-hoc operators treated perturbatively or through variationally stable two-component relativistic techniques such as the Exact Two-Component method (X2C),\cite{Liu09_219,Liu10_532,Liu09_1945,Saue09_2091} then the kinetic energy operator is replaced by its relativistic counterpart, while the electron-nuclei attraction potential is replaced by a spin-independent scalar relativistic operator, and a spin-orbit coupling term.
+The one-electron part of the Hamiltonian is then partitioned as:
+\begin{equation}
+ h = \sigma_0 h_\mathrm{s} + \vec{\sigma}\cdot\vec{h}_\mathrm{SO}
+\end{equation}
+For instance in the Pauli Hamiltonian, which can be used to correct for relativistic effects perturbatively, the two terms are given by:
+\begin{align}
+ h_\mathrm{s} &= T + V + \frac{p^4}{8m_\mathrm{e}^3c^2} + \sum_A 2\pi\mu_\mathrm{B}^2 Z_A\delta(\vec{r}-\vec{R}_A) \\
+ \vec{h}_\mathrm{SO} &= \sum_A\frac{\mu_\mathrm{B}^2}{\hbar}\frac{Z_A}{\vert\vec{r}-\vec{R}_A\vert^3}\vec{l}_A
+\end{align}
+Where the index $A$ runs over all nuclei and $\vec{l}_A$ is the orbital angular momentum of the electron with respect to the atom $A$.
+The expectation value of the this operator is obtained by tracing it with the density.
+Because the Pauli matrices are traceless, however, there are no cross terms in the trace:
+\begin{equation}
+ \ev{\rho h} = \frac{1}{2}\ev{nh_\mathrm{s}} + \frac{1}{2}\ev{\vec{m}\cdot\vec{h}_\mathrm{SO}}
+\end{equation}
+Even without relativistic effects, spin-dependent one electron interactions appear whenever other magnetic interactions are included (such as in the case of external magnetic fields).
+
+The density matrix can be used to find expectation values of any one-electron operators, but to do the same for two-electron operators such as the simple Coulomb repulsion we need, in general, the two-electron density matrix:
+\begin{equation}
+ \gamma(x_1,x_1',x_2,x_2') = N(N-1)\int\Psi(x_1,x_2,\dots,x_N)\Psi^*(x_1',x_2',\dots,x_N)\dd x_3,\dots,\dd x_N
+\end{equation}
+Also in this case the spin variables can be separated from the spatial coordinates of the electrons, but now have four spin coordinates instead of two.
+In most cases there is no need to keep the primed variables and the two-electron density function $\gamma(x_1,x_2)=\gamma(x_1,x_1,x_2,x_2)$ suffices.
+As in the case of the one-particle density we want the spin-separated matrices to contract with two-electron operators according to their spin properties.
+A convenient way to achieve this result is to write the density as $\gamma^{\xi_1\xi_2}$ where both apices range from 0 to 3 to signify the total and magnetization parts.
+This is obtained by integration of the spin variables with the Pauli matrices. Dropping the spatial variables:
+\begin{equation}
+\label{eq:gamma12}
+ \gamma^{\xi_1\xi_2} = \int \gamma(\tau_1,\tau_1',\tau_2,\tau_2')\sigma_{\xi_1}(\tau_1,\tau_1')\sigma_{\xi_2}(\tau_2,\tau_2')\dd\tau_1\dd\tau_1'\dd\tau_2\dd\tau_2'
+\end{equation}
+A spin-less two-electron operator such as the Coulomb repulsion would only trace with $\gamma^{00}$:
+\begin{equation}
+ G = \frac{1}{2}\sum_{i\ne j}\frac{1}{r_{ij}} = \frac{1}{2}\sum_{i\ne j}g(r_{ij}) \quad\Longrightarrow\quad \ev{G} = \frac{1}{2}\evv{g\gamma^{00}}
+\end{equation}
+Conversely, the expectation value of the total spin operator $S^2$ for a system of $N$ electrons depends on the spin-diagonal two-electron densities instead:
+\begin{equation}
+\label{eq:S2}
+ \ev{S^2} = \frac{3}{4}N + \frac{1}{4}\sum_{i=1}^3 \evv{\gamma^{ii}}
+\end{equation}
+Other examples include the spin-spin dipole relativistic interaction from the Breit-Pauli Hamiltonian:\cite{Dyall07_book327}
+\begin{equation}
+ G^{SS} = \frac{\mu_\mathrm{B}^2}{2} \sum_{i\ne j} \left(
+  \frac{\vec{\sigma}_i\cdot\vec{\sigma}_j}{r_{ij}^3} -
+  \frac{3(\vec{\sigma}_i\cdot\vec{r}_{ij})(\vec{\sigma}_j\cdot\vec{r}_{ij})}{r_{ij}^5} \right)
+\end{equation}
+The expectation value of this operator requires a combination of spin matrices, traced with the appropriate spacial operators:
+\begin{equation}
+ \ev{G^{SS}} = \frac{\mu_\mathrm{B}^2}{2}\evv{\frac{1}{r_{12}^3}\gamma^{\sigma\sigma}(\vec{r}_1,\vec{r}_2)} - 
+               \frac{\mu_\mathrm{B}^2}{2}\evv{\frac{3r^\sigma_{12}r^\tau_{12}}{r_{12}^5}\gamma^{\sigma\tau}(\vec{r}_1,\vec{r}_2)} 
+\end{equation}
+Explicit expressions for these densities in the case of a non-interacting system described by a single Slater determinant will be given below.
+
+%Single Determinant
+\subsection{Single-Determinant Densities}
+In the HF or DFT methods the density matrix can be written in terms of a single Slater determinant.
+When written in terms of set of atomic-centered basis functions $\{\bm{\chi}\}$, the charge and magnetization densities can be written as:
+\begin{equation}
+ n(\vec{r},\vec{r}^{\,\prime}) = \bm{\chi}(\vec{r}\,)\mathbf{N}\bm{\chi}^\dagger(\vec{r}^{\,\prime}) \quad;\quad
+ \vec{m}(\vec{r},\vec{r}^{\,\prime}) = \bm{\chi}(\vec{r}\,)\vec{\mathbf{M}}\bm{\chi}^\dagger(\vec{r}^{\,\prime})
+\end{equation}
+The matrices $\mathbf{N}$ and $\vec{\mathbf{M}}$ are obtained as the solution of the Self-Consistent Field (SCF) HF or DFT equations.
+It is well known that in this case the two-body density matrix can be written in terms of the one-body density by means of the following determinant:
+\begin{equation}
+ \gamma(x_1,x_1',x_2,x_2') = \begin{vmatrix} \rho(x_1,x_1') & \rho(x_1,x_2') \\\rho(x_2,x_1') & \rho(x_2,x_2') \end{vmatrix}
+\end{equation}
+It is however interesting to look at the expressions for the spin-separated density matrices in terms of the charge and magnetization densities.
+%For instance, in the spin-diagonal case, we have:
+%\begin{align}
+% \gamma^{00} &=
+%  \frac{1}{2}\big(2n(r_1,r_1')n(r_2,r_2')-n(r_1,r_2')n(r_2,r_1')\big) - \frac{1}{2}\vec{m}(r_1,r_2')\cdot\vec{m}(r_2,r_1') \\
+% \gamma^{\sigma\sigma} &=
+%  m_i(r_1,r_1')m_i(r_2,r_2') - \frac{1}{2}n(r_1,r_2')n(r_2,r_1') + \frac{1}{2}\vec{m}(r_1,r_2')\cdot\vec{m}(r_2,r_1') - m_i(r_1,r_2')m_i(r_2,r_1') \\
+% \sum_{\sigma=x,y,z}\gamma^{\sigma\sigma} &=
+%  \vec{m}(r_1,r_1')\cdot\vec{m}(r_2,r_2') - \frac{3}{2}n(r_1,r_2')n(r_2,r_1') + \frac{1}{2}\vec{m}(r_1,r_2')\cdot\vec{m}(r_2,r_1')
+%\end{align}
+If we define $m_0=\iu n$ then it can be shown using \cref{eq:gamma12} that the spin densities can be written as:
+\begin{align}
+ \gamma^{ii} &= \begin{vmatrix} m_i(r_1,r_1') & m_i(r_1,r_2') \\ m_i(r_2,r_1') & m_i(r_2,r_2') \end{vmatrix} 
+  + \frac{1}{2} \sum_jm_j(r_1,r_2')m_j(r_2,r_1') \\
+ \gamma^{ij}+\gamma^{ji} &= \begin{vmatrix} m_i(r_1,r_1') & m_j(r_1,r_2') \\ m_i(r_2,r_1') & m_j(r_2,r_2') \end{vmatrix} +
+                            \begin{vmatrix} m_j(r_1,r_1') & m_i(r_1,r_2') \\ m_j(r_2,r_1') & m_i(r_2,r_2') \end{vmatrix} \\
+ \gamma^{ij}-\gamma^{ji} &= \begin{vmatrix} m_i(r_1,r_1') & m_k(r_1,r_2') \\ m_l(r_2,r_1') & m_j(r_2,r_2') \end{vmatrix} -
+                            \begin{vmatrix} m_j(r_1,r_1') & m_l(r_1,r_2') \\ m_k(r_2,r_1') & m_i(r_2,r_2') \end{vmatrix} \quad(\varepsilon_{ijkl}=+1)
+\end{align}
+Where $\varepsilon_{\sigma\tau\zeta\eta}$ is the rank-four Levi-Civita symbol, and we have isolated the isotropic, symmetric anisotropic, and antisymmetric anisotropic spin components of the two-electron density.
+These are the components that are actually needed in all systems without a preferential spin orientation with respect to laboratory frame of reference.
+The isotropic and symmetric anisotropic components are used to calculate the spin-spin dipole couplings, the antisymmetric anisotropy can instead appear in other types of terms, such as the Dzyaloshinskii-Moriya interaction,\cite{Dzyaloshinsky58_241,Moriya60_91} which involves the cross products of two spin dipole moments.
+This way of isolating density components can provide useful insights into the computational methods used to solve two-component problems as will be shown below.
+
+Using these expressions it is possible to easily derive explicit expressions for expectation values of spin operators.
+For instance, \cref{eq:S2} becomes:
+\begin{equation}
+\begin{split}
+ \ev{S^2} &= \frac{3}{4}N + \frac{1}{4}(\tr\vec{\mathbf{M}}\mathbf{S})^2
+          - \frac{3}{8}\tr\mathbf{NSNS} + \frac{1}{8}\tr\vec{\mathbf{M}}\mathbf{S}\cdot\vec{\mathbf{M}}\mathbf{S} =\\
+          &= \frac{1}{4}(\tr\vec{\mathbf{M}}\mathbf{S})^2 + \frac{1}{2}\tr\vec{\mathbf{M}}\mathbf{S}\cdot\vec{\mathbf{M}}\mathbf{S}
+\end{split}
+\end{equation}
+Where $\mathbf{S}$ is the AO overlap matrix, and to simplify the expression we have invoked the idempotency condition:
+\begin{equation}
+ \mathbf{PSP} = \mathbf{P} \quad\Longrightarrow\quad
+ 2\mathbf{N} = \mathbf{NSN} + \vec{\mathbf{M}}\mathbf{S}\cdot\vec{\mathbf{M}} \quad;\quad
+ 2\vec{\mathbf{M}} = \mathbf{NS}\vec{\mathbf{M}} + \vec{\mathbf{M}}\mathbf{SN} + \iu \vec{\mathbf{M}}\mathbf{S}\times\vec{\mathbf{M}}
+\end{equation}
+
+%Energy
+\subsection{Energy and Fock Operator}
+If we consider a Hamiltonian containing scalar and spin-orbit one-electron terms, and the bare Coulomb two-electron repulsion operator.
+Given a one-electron density matrix $\rho$, the mean-field energy would be given as:
+\begin{equation}
+ E = \frac{1}{2}\ev{nh_\mathrm{s}} + \frac{1}{2}\ev{\vec{m}\cdot\vec{h}_\mathrm{SO}} + \frac{1}{2}\evv{\gamma^{00}g}
+\end{equation}
+The Fock operator can be found by differentiating this energy with respect to the density matrix components.
+The derivatives with respect to the charge and magnetization densities can be taken separately:
+\begin{equation}
+ \frac{\delta}{\delta\rho} = 
+  \begin{pmatrix} \frac{\delta}{\delta\rho^{\alpha\alpha}} & \frac{\delta}{\delta\rho^{\alpha\beta}} \\
+                  \frac{\delta}{\delta\rho^{\beta\alpha}}  & \frac{\delta}{\delta\rho^{\beta\beta}} \end{pmatrix} =
+  \frac{\delta n}{\delta\rho}\frac{\delta}{\delta n} + \frac{\delta \vec{m}}{\delta\rho}\cdot\frac{\delta}{\delta \vec{m}} = 
+    \sigma_0\frac{\delta}{\delta n} + \vec{\sigma}\cdot\frac{\delta}{\delta\vec{m}}
+\end{equation}
+The well-known expression for the Fock operator which, in the AO basis, is then given by:
+\begin{equation}
+ \mathbf{F}(\mathbf{P}) = \pfrac{E}{\mathbf{P}^\mathrm{t}} = \frac{1}{2}\sigma_0\big(\mathbf{h}_\mathrm{s} + 2\mathbf{J}(\mathbf{N}) - \mathbf{K}(\mathbf{N})\big) +
+  \frac{1}{2}\vec{\sigma}\cdot\big(\vec{\mathbf{h}}_\mathrm{SO} - \mathbf{K}(\vec{\mathbf{M}})\big)
+\end{equation}
+Where the Coulomb and Exchange contributions are directly derived from the expression of two-electron density matrix:
+\begin{equation}
+ \gamma^{00} = \frac{1}{2}\big(2n(r_1,r_1')n(r_2,r_2')-n(r_1,r_2')n(r_2,r_1')\big) - \frac{1}{2}\vec{m}(r_1,r_2')\cdot\vec{m}(r_2,r_1') 
+\end{equation}
+In the case of DFT the exchange is substituted with the exchange-correlation potential and magnetic field.
+This expression for the two-component Fock operator can be immediately be reduced to the Restricted and Unrestricted limiting cases (in the absence of spin-orbit interactions).
+The UHF form is obtained by setting $\mathbf{M}_x$ and $\mathbf{M}_y$ to zero, while for RHF all magnetization components are zero, and the familiar $2\mathbf{J} - \mathbf{K}$ form of two electron part is already manifest.
+
+
+%%%%%%%%%%%%
+%SCF METHODS
+%%%%%%%%%%%%
+\section{Self-Consistent Field Methods}
+
+%%%%%%%%%%%%
+%CONCLUSIONS
+%%%%%%%%%%%%
+\section{Conclusions and Perspectives}
+ToBeDone
+
+\section{Acknowledgements}
+ToBeDone
+
+\newpage
+\bibliographystyle{jcp}
+\bibliography{Journal_Short_Name.bib,Li_Group_References.bib,Egidi_References.bib,All_References.bib}
+
+\end{document}
