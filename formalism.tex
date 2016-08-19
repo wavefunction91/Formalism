@@ -110,7 +110,7 @@ TOBEDONE
 %%%%%%%
 \section{Theory and Formalism}
 In this section we revisit the equations commonly encountered in the context of single Slater determinant methods, whether Hartree-Fock (HF) or Kohn-Sham Density Functional Theory (DFT), by placing the emphasis on the separation of spacial and spin coordinates.
-NOTATION
+In the following, we use the notation $\langle\cdot\rangle$ to denote the contraction of a one electron operator with the corresponding density, and $\langle\langle\cdot\rangle\rangle$ to denote the equivalent contraction for two-electron operators.
 
 %Density Matrices
 \subsection{Charge and Magnetization Densities}
@@ -130,14 +130,15 @@ The presence of the spin variables within the density matrix can be made more ex
  \sigma_z = \begin{pmatrix} 0 & 1    \\   1 & 0 \end{pmatrix}
 \end{gather}
 We have introduced the total charge and magnetization densities $n$ and $\vec{m}$, which depend only on the spatial electron coordinates.
-These quantities have dimensions of inverse volume, but their physical meaning can be restored by multiplying them with the appropriate factors:
+These quantities have dimensions of inverse volume, but their physical meaning can be restored by multiplying them by the appropriate factors:
 \begin{equation}
  n\rightarrow -en \quad;\quad \vec{m}\rightarrow-\frac{1}{2}g_\mathrm{e}\mu_\mathrm{B}\vec{m}
 \end{equation}
-where $e$ is the elementary charge, $g_\mathrm{e}$ the electron g-factor, and $\mu_\mathrm{B}=e\hbar/2m_\mathrm{e}c$ is the Bohr magneton.
-This separation of the density is particularly convenient, as will be shown below, for it can greatly simplify the Self-Consistent Field equations.
+where $e$ is the elementary charge, $g_\mathrm{e}$ the electron $g$-factor, and $\mu_\mathrm{B}=e\hbar/2m_\mathrm{e}c$ is the Bohr magneton.
+This separation of the density is particularly convenient, as will be shown below, for in the case of a non-collinear density, it can greatly simplify a number of equations, including the expectation values of spin operators and the expression for the Fock operator.
+
 A similar partitioning can also be performed for those operators that possess a spin dependence.
-The non-relativistic molecular Hamiltonian, in absence of external fields, does not contain any spin operators, however if relativistic effects are introduced by means of ad-hoc operators treated perturbatively or through variationally stable two-component relativistic techniques such as the Exact Two-Component method (X2C),\cite{Liu09_219,Liu10_532,Liu09_1945,Saue09_2091} then the kinetic energy operator is replaced by its relativistic counterpart, while the electron-nuclei attraction potential is replaced by a spin-independent scalar relativistic operator, and a spin-orbit coupling term.
+The non-relativistic molecular Hamiltonian, in the absence of external magnetic fields, does not contain any spin operators, however if relativistic effects are introduced by means of ad-hoc operators treated perturbatively or through variationally stable two-component relativistic techniques such as the Exact Two-Component method (X2C),\cite{Liu09_219,Liu10_532,Liu09_1945,Saue09_2091} then the kinetic energy operator is replaced by its relativistic counterpart, while the electron-nuclei attraction potential is replaced by a spin-independent scalar relativistic operator, and a spin-orbit coupling term.
 The one-electron part of the Hamiltonian is then partitioned as:
 \begin{equation}
  h = \sigma_0 h_\mathrm{s} + \vec{\sigma}\cdot\vec{h}_\mathrm{SO}
@@ -149,7 +150,7 @@ For instance in the Pauli Hamiltonian, which can be used to correct for relativi
 \end{align}
 Where the index $A$ runs over all nuclei and $\vec{l}_A$ is the orbital angular momentum of the electron with respect to the atom $A$.
 The expectation value of the this operator is obtained by tracing it with the density.
-Because the Pauli matrices are traceless, however, there are no cross terms in the trace:
+Because the Pauli matrices are traceless, however, there are no cross terms:
 \begin{equation}
  \ev{\rho h} = \frac{1}{2}\ev{nh_\mathrm{s}} + \frac{1}{2}\ev{\vec{m}\cdot\vec{h}_\mathrm{SO}}
 \end{equation}
@@ -159,9 +160,8 @@ The density matrix can be used to find expectation values of any one-electron op
 \begin{equation}
  \gamma(x_1,x_1',x_2,x_2') = N(N-1)\int\Psi(x_1,x_2,\dots,x_N)\Psi^*(x_1',x_2',\dots,x_N)\dd x_3,\dots,\dd x_N
 \end{equation}
-Also in this case the spin variables can be separated from the spatial coordinates of the electrons, but now have four spin coordinates instead of two.
 In most cases there is no need to keep the primed variables and the two-electron density function $\gamma(x_1,x_2)=\gamma(x_1,x_1,x_2,x_2)$ suffices.
-As in the case of the one-particle density we want the spin-separated matrices to contract with two-electron operators according to their spin properties.
+Also in this case the spin variables can be separated from the spatial coordinates of the electrons, but now have four spin coordinates instead of two.
 A convenient way to achieve this result is to write the density as $\gamma^{\xi_1\xi_2}$ where both apices range from 0 to 3 to signify the total and magnetization parts.
 This is obtained by integration of the spin variables with the Pauli matrices. Dropping the spatial variables:
 \begin{equation}
@@ -175,9 +175,9 @@ A spin-less two-electron operator such as the Coulomb repulsion would only trace
 Conversely, the expectation value of the total spin operator $S^2$ for a system of $N$ electrons depends on the spin-diagonal two-electron densities instead:
 \begin{equation}
 \label{eq:S2}
- \ev{S^2} = \frac{3}{4}N + \frac{1}{4}\sum_{i=1}^3 \evv{\gamma^{ii}}
+ \ev{S^2} = \frac{3}{4}N + \frac{1}{4}\sum_{\sigma=1}^3\evv{\gamma^{\sigma\sigma}}
 \end{equation}
-Other examples include the spin-spin dipole relativistic interaction from the Breit-Pauli Hamiltonian:\cite{Dyall07_book327}
+Other examples of operators that require the spin two-electron densities include the spin-spin dipole relativistic interaction from the Breit-Pauli Hamiltonian:\cite{Dyall07_book327}
 \begin{equation}
  G^{SS} = \frac{\mu_\mathrm{B}^2}{2} \sum_{i\ne j} \left(
   \frac{\vec{\sigma}_i\cdot\vec{\sigma}_j}{r_{ij}^3} -
@@ -185,20 +185,20 @@ Other examples include the spin-spin dipole relativistic interaction from the Br
 \end{equation}
 The expectation value of this operator requires a combination of spin matrices, traced with the appropriate spacial operators:
 \begin{equation}
- \ev{G^{SS}} = \frac{\mu_\mathrm{B}^2}{2}\evv{\frac{1}{r_{12}^3}\gamma^{\sigma\sigma}(\vec{r}_1,\vec{r}_2)} - 
-               \frac{\mu_\mathrm{B}^2}{2}\evv{\frac{3r^\sigma_{12}r^\tau_{12}}{r_{12}^5}\gamma^{\sigma\tau}(\vec{r}_1,\vec{r}_2)} 
+ \ev{G^{SS}} = \frac{\mu_\mathrm{B}^2}{2}\sum_{\sigma=1}^3\evv{\frac{1}{r_{12}^3}\gamma^{\sigma\sigma}(\vec{r}_1,\vec{r}_2)} - 
+               \frac{\mu_\mathrm{B}^2}{2}\sum_{\sigma,\tau=1}^3\evv{\frac{3r^\sigma_{12}r^\tau_{12}}{r_{12}^5}\gamma^{\sigma\tau}(\vec{r}_1,\vec{r}_2)} 
 \end{equation}
-Explicit expressions for these densities in the case of a non-interacting system described by a single Slater determinant will be given below.
+Explicit expressions for these densities depend on the chosen electronic structure method, and the case of a system described by a single Slater determinant is expanded below.
 
 %Single Determinant
 \subsection{Single-Determinant Densities}
-In the HF or DFT methods the density matrix can be written in terms of a single Slater determinant.
+In the HF or DFT methods the density matrix can be written in terms of a single Slater determinant (for DFT the density matrix refers to the fictitious non-interacting system).
 When written in terms of set of atomic-centered basis functions $\{\bm{\chi}\}$, the charge and magnetization densities can be written as:
 \begin{equation}
  n(\vec{r},\vec{r}^{\,\prime}) = \bm{\chi}(\vec{r}\,)\mathbf{N}\bm{\chi}^\dagger(\vec{r}^{\,\prime}) \quad;\quad
  \vec{m}(\vec{r},\vec{r}^{\,\prime}) = \bm{\chi}(\vec{r}\,)\vec{\mathbf{M}}\bm{\chi}^\dagger(\vec{r}^{\,\prime})
 \end{equation}
-The matrices $\mathbf{N}$ and $\vec{\mathbf{M}}$ are obtained as the solution of the Self-Consistent Field (SCF) HF or DFT equations.
+The matrices $\mathbf{N}$ and $\vec{\mathbf{M}}$ are obtained as the solution to the Self-Consistent Field (SCF) HF or DFT equations.
 It is well known that in this case the two-body density matrix can be written in terms of the one-body density by means of the following determinant:
 \begin{equation}
  \gamma(x_1,x_1',x_2,x_2') = \begin{vmatrix} \rho(x_1,x_1') & \rho(x_1,x_2') \\\rho(x_2,x_1') & \rho(x_2,x_2') \end{vmatrix}
@@ -215,12 +215,12 @@ It is however interesting to look at the expressions for the spin-separated dens
 %\end{align}
 If we define $m_0=\iu n$ then it can be shown using \cref{eq:gamma12} that the spin densities can be written as:
 \begin{align}
- \gamma^{ii} &= \begin{vmatrix} m_i(r_1,r_1') & m_i(r_1,r_2') \\ m_i(r_2,r_1') & m_i(r_2,r_2') \end{vmatrix} 
-  + \frac{1}{2} \sum_jm_j(r_1,r_2')m_j(r_2,r_1') \\
- \gamma^{ij}+\gamma^{ji} &= \begin{vmatrix} m_i(r_1,r_1') & m_j(r_1,r_2') \\ m_i(r_2,r_1') & m_j(r_2,r_2') \end{vmatrix} +
-                            \begin{vmatrix} m_j(r_1,r_1') & m_i(r_1,r_2') \\ m_j(r_2,r_1') & m_i(r_2,r_2') \end{vmatrix} \\
- \gamma^{ij}-\gamma^{ji} &= \begin{vmatrix} m_i(r_1,r_1') & m_k(r_1,r_2') \\ m_l(r_2,r_1') & m_j(r_2,r_2') \end{vmatrix} -
-                            \begin{vmatrix} m_j(r_1,r_1') & m_l(r_1,r_2') \\ m_k(r_2,r_1') & m_i(r_2,r_2') \end{vmatrix} \quad(\varepsilon_{ijkl}=+1)
+ \gamma^{\sigma\sigma} &= \begin{vmatrix} m_\sigma(r_1,r_1') & m_\sigma(r_1,r_2') \\ m_\sigma(r_2,r_1') & m_\sigma(r_2,r_2') \end{vmatrix} 
+  + \frac{1}{2} \sum_\tau m_\tau(r_1,r_2')m_\tau(r_2,r_1') \\
+ \gamma^{\sigma\tau}+\gamma^{\tau\sigma} &= \begin{vmatrix} m_\sigma(r_1,r_1') & m_\tau(r_1,r_2')   \\ m_\sigma(r_2,r_1') & m_\tau(r_2,r_2')   \end{vmatrix} +
+                                            \begin{vmatrix} m_\tau(r_1,r_1')   & m_\sigma(r_1,r_2') \\ m_\tau(r_2,r_1')   & m_\sigma(r_2,r_2') \end{vmatrix} \\
+ \gamma^{\sigma\tau}-\gamma^{\tau\sigma} &= \begin{vmatrix} m_\sigma(r_1,r_1') & m_\zeta(r_1,r_2')  \\ m_\eta(r_2,r_1')   & m_\tau(r_2,r_2')   \end{vmatrix} -
+                                            \begin{vmatrix} m_\tau(r_1,r_1')   & m_\eta(r_1,r_2')   \\ m_\zeta(r_2,r_1')  & m_\sigma(r_2,r_2') \end{vmatrix} \quad(\varepsilon_{\sigma\tau\zeta\eta}=+1)
 \end{align}
 Where $\varepsilon_{\sigma\tau\zeta\eta}$ is the rank-four Levi-Civita symbol, and we have isolated the isotropic, symmetric anisotropic, and antisymmetric anisotropic spin components of the two-electron density.
 These are the components that are actually needed in all systems without a preferential spin orientation with respect to laboratory frame of reference.
