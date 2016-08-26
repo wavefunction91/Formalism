@@ -308,14 +308,14 @@ For such functionals the additional change of variables should be as follows:
 \begin{equation}
 \label{eq:alphabeta}
 \begin{split}
- \rho^{\alpha\alpha} &\longrightarrow n_+ = \frac{1}{2}(n + m) \\
- \rho^{\beta\beta}   &\longrightarrow n_- = \frac{1}{2}(n - m) \\
+ \rho^{\alpha\alpha} &\longleftarrow n_+ = \frac{1}{2}(n + m) \\
+ \rho^{\beta\beta}   &\longleftarrow n_- = \frac{1}{2}(n - m) \\
  \gamma^{\alpha\alpha} = \grad\rho^{\alpha\alpha}\cdot\grad\rho^{\alpha\alpha} 
-  &\longrightarrow \gamma_{++} = \frac{1}{4}(\gamma_{nn} + \gamma_{mm} + 2\gamma_{nm}) \\
+  &\longleftarrow \gamma_{++} = \frac{1}{4}(\gamma_{nn} + \gamma_{mm} + 2\gamma_{nm}) \\
  \gamma^{\beta\beta} = \grad\rho^{\beta\beta}\cdot\grad\rho^{\beta\beta}
-  &\longrightarrow \gamma_{--} = \frac{1}{4}(\gamma_{nn} + \gamma_{mm} - 2\gamma_{nm}) \\
+  &\longleftarrow \gamma_{--} = \frac{1}{4}(\gamma_{nn} + \gamma_{mm} - 2\gamma_{nm}) \\
  \gamma^{\alpha\beta} = \grad\rho^{\alpha\alpha}\cdot\grad\rho^{\beta\beta}
-  &\longrightarrow \gamma_{+-} = \frac{1}{4}(\gamma_{nn} - \gamma_{mm}) \\
+  &\longleftarrow \gamma_{+-} = \frac{1}{4}(\gamma_{nn} - \gamma_{mm}) \\
 \end{split}
 \end{equation}
 The calculation of the Kohn-Sham matrix $\mathbf{F}$ requires the differentiation of the functional with respect of the density, followed by integration over a numerical grid.
@@ -348,13 +348,19 @@ This is also done by means of the chain rule, relating them back to the $\bm{u}$
  \dder{f}{v_i} = \sum_j \dder{u_j}{v_i}\dder{f}{u_j}
 \end{equation}
 Depending on the specific implementation of the functionals, an additional level of chain rule derivatives may be included at this point, according to \cref{eq:alphabeta}.
+\iffalse
 Some chain rule derivatives are trivial, we collect here some less immediate ones:
-\begin{equation}
- \dder{m}{\vec{m}} = \frac{\vec{m}}{m} \quad;\quad \dots
-\end{equation}
+\begin{gather*}
+ \dder{m}{\vec{m}} = \frac{\vec{m}}{m} \quad;\quad
+ \dder{\gamma_{nn}}{\grad n} = 2\grad n \quad;\quad
+ \dder{\gamma_{mm}}{\grad\vec{m}} = 2\grad \vec{m} \\
+ \dder{\gamma_{nm}}{\grad n} = f_\nabla\sqrt{(\grad n \cdot \grad\vec{m})\circ\grad\vec{m}} \quad;\quad
+ \dder{\gamma_{nm}}{\grad \vec{m}} = f_\nabla\sqrt{(\grad n \cdot \grad\vec{m}) \grad n}
+\end{gather*}
+\fi
 
 \subsection{Zero-Torque-Theorem}
-\co{Include proof of the ZTT for these definitions?}
+\co{Include proof of the ZTT for these definitions? Probably not, they did it already.}
 
 %%%%%%%%%%%%
 %SCF METHODS
