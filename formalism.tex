@@ -339,8 +339,8 @@ We define the two sets of density variables used, the original (16 of them, coll
 The first change of variables exposes the AOs that are evaluated over the grid:
 \begin{gather}
  \pder{}{N_{\nu\mu}} = \sum_i \pder{v_i}{N_{\nu\mu}}\dder{}{v_i} \\
- \pder{n}{N_{\nu\mu}} = \pder{m_i}{N_{\nu\mu}} = \chi^*_\mu(\vec{r})\chi_\nu(\vec{r}) \\
- \pder{\grad n}{N_{\nu\mu}} = \pder{\grad m_i}{N_{\nu\mu}} = \grad(\chi^*_\mu(\vec{r})\chi_\nu(\vec{r}))
+ \pder{n}{N_{\nu\mu}} = \chi^*_\mu(\vec{r}\,)\chi_\nu(\vec{r}\,) \quad;\quad
+ \pder{\grad n}{N_{\nu\mu}} = \grad(\chi^*_\mu(\vec{r}\,)\chi_\nu(\vec{r}\,))
 \end{gather}
 We must then evaluate the functional derivative in \cref{eq:Vxc} with respect to the $\bm{v}$ variables.
 This is also done by means of the chain rule, relating them back to the $\bm{u}$ variables:
