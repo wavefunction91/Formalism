@@ -81,6 +81,11 @@
 \newcommand{\evv}[1]{\langle\langle #1 \rangle\rangle}
 \newcommand{\tr}{\operatorname{tr}}
 \newcommand{\iu}{\ensuremath\mathrm{i}}
+\newcommand*{\grad}{\vec{\nabla}}
+\newcommand*{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand*{\tder}[2]{\frac{\dd #1}{\dd #2}}
+\newcommand*{\dder}[2]{\frac{\delta #1}{\delta #2}}
+
 
 \begin{document}
 
@@ -253,6 +258,7 @@ Given a one-electron density matrix $\rho$, the mean-field energy would be given
 The Fock operator can be found by differentiating this energy with respect to the density matrix components.
 The derivatives with respect to the charge and magnetization densities can be taken separately:
 \begin{equation}
+\label{eq:DenDer}
  \frac{\delta}{\delta\rho} = 
   \begin{pmatrix} \frac{\delta}{\delta\rho^{\alpha\alpha}} & \frac{\delta}{\delta\rho^{\alpha\beta}} \\
                   \frac{\delta}{\delta\rho^{\beta\alpha}}  & \frac{\delta}{\delta\rho^{\beta\beta}} \end{pmatrix} =
@@ -272,6 +278,89 @@ In the case of DFT the exchange is substituted with the exchange-correlation pot
 This expression for the two-component Fock operator can be immediately be reduced to the Restricted and Unrestricted limiting cases (in the absence of spin-orbit interactions).
 The UHF form is obtained by setting $\mathbf{M}_x$ and $\mathbf{M}_y$ to zero, while for RHF all magnetization components are zero, and the familiar $2\mathbf{J} - \mathbf{K}$ form of two electron part is already manifest.
 
+\subsection{Density Functional Theory}
+Kohn-Sham Density Functional Theory (DFT) is the often the electronic structure method of choice for many applications of molecular quantum chemistry thanks to its good compromise between computational cost and accuracy.
+Many density functionals have been developed and tested over the years, however most applications focus on system with collinear magnetizations, therefore the vast majority of common density functionals have been explicitly developed in this regime.
+In practice, the developed functionals usually depend on the alpha and beta density only, and possibly their gradients and Laplacians for meta-GGAs.
+While some effort has been directed towards the development of new density functionals specifically designed to take non-collinearity into account,\cite{Gross13_156401} it is desirable to be able to use standard functionals, which have proved to yield accurate results in a wide variety of contexts and for the calculation of a multitude of molecular properties.
+This requires the use of an alternative definition of the variables that the functionals depend upon.
+To this end, several formalisms have been proposed,\cite{vanWullen02_779,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Liu04_6658,Liu05_241102,Liu03_597,Liu05_054102,Liu13_3741} here we recall the one presented by Scuseria et al.\cite{Frisch07_125119,Frisch12_2193,Scuseria13_035117}
+
+In this formalism, the exchange-correlation energy of a generic GGA functional is written in the following form:
+\begin{equation}
+\label{eq:Exc}
+ E_\mathrm{xc} = \int f(n,m,\gamma_{nn},\gamma_{mm},\gamma_{nm})\dd\vec{r}
+\end{equation}
+where $n$ and $m=\sqrt{\vec{m}\circ\vec{m}}$ are the charge density and the length of the magnetization vector, respectively, while for the gradient terms the auxiliary variables that enter the functional expression have the following definitions:
+\begin{equation}
+\label{eq:Uvar}
+\begin{split}
+ \gamma_{nn} &= \grad n\cdot\grad n \\
+ \gamma_{mm} &= \grad \vec{m}\odot\grad \vec{m} \\
+ \gamma_{nm} &= f_\nabla\sqrt{\grad n\cdot\grad \vec{m}\circ\grad \vec{m}\cdot\grad n} \\
+ f_\nabla    &= \operatorname{sgn}(\grad n\cdot\grad \vec{m}\circ\vec{m})
+\end{split}
+\end{equation}
+where the symbols $\cdot$ and $\circ$ indicate a scalar product in spacial and spin space, respectively ($\odot$ being the combined product), while sgn indicates the sign function.
+The existence of the sign function term is justified by the fact that, with these definitions, in the collinear limit the magnetization is always pointing ``up" ($\rho^{\alpha\alpha}\ge\rho^{\beta\beta}$) by convention, whereas in principle when doing an unrestricted calculation one could choose to have the magnetization be oriented in the opposite direction.
+Note that as already stated some functionals are usually defined using the $\alpha$ and $\beta$ densities rather the than the total and spin densities.
+For such functionals the additional change of variables should be as follows:
+\begin{equation}
+\label{eq:alphabeta}
+\begin{split}
+ \rho^{\alpha\alpha} &\longleftarrow n_+ = \frac{1}{2}(n + m) \\
+ \rho^{\beta\beta}   &\longleftarrow n_- = \frac{1}{2}(n - m) \\
+ \gamma^{\alpha\alpha} = \grad\rho^{\alpha\alpha}\cdot\grad\rho^{\alpha\alpha} 
+  &\longleftarrow \gamma_{++} = \frac{1}{4}(\gamma_{nn} + \gamma_{mm} + 2\gamma_{nm}) \\
+ \gamma^{\beta\beta} = \grad\rho^{\beta\beta}\cdot\grad\rho^{\beta\beta}
+  &\longleftarrow \gamma_{--} = \frac{1}{4}(\gamma_{nn} + \gamma_{mm} - 2\gamma_{nm}) \\
+ \gamma^{\alpha\beta} = \grad\rho^{\alpha\alpha}\cdot\grad\rho^{\beta\beta}
+  &\longleftarrow \gamma_{+-} = \frac{1}{4}(\gamma_{nn} - \gamma_{mm}) \\
+\end{split}
+\end{equation}
+The calculation of the Kohn-Sham matrix $\mathbf{F}$ requires the differentiation of the functional with respect of the density, followed by integration over a numerical grid.
+
+In the two-component framework, the derivatives of the exchange-correlation energy with respect to the charge and magnetization densities are often called the exchange-correlation potential and magnetic field, respectively:\cite{Gyorffy01_206403,Scuseria13_035117}
+\begin{equation}
+ V_\mathrm{xc} = \dder{E_\mathrm{xc}}{n} \quad;\quad \vec{B}_\mathrm{xc} = \dder{E_\mathrm{xc}}{\vec{m}}
+\end{equation}
+Functional derivatives can be evaluated according to \cref{eq:DenDer} and using the chain rule to relate the derivative with respect to a specific component of the density ($n$ or any component of $\vec{m}$) to the actual functional derivatives with respect to the auxiliary variables.
+For instance, in terms of the AO basis, the scalar exchange-correlation part of the Kohn-Sham matrix (i.e.\ the exchange correlation potential matrix, the same reasoning can be applied to the exchange-correlation magnetic field) is:
+\begin{equation}
+\label{eq:Vxc}
+ {V_\mathrm{xc}}_{\mu\nu} = \pder{E_\mathrm{xc}}{N_{\nu\mu}} = \int \pder{}{N_{\nu\mu}}f(n,m,\gamma_{nn},\gamma_{mm},\gamma_{nm})\dd\vec{r}
+\end{equation}
+We must then use the chain rule to change the variables.
+We define the two sets of density variables used, the original (16 of them, collected in the list $\bm{v}$) and auxiliary (5 of them, collected in the list $\bm{u}$):
+\begin{align}
+ \bm{v} &= ( n ,\,\vec{m} ,\, \grad n ,\, \grad\vec{m} ) \\
+ \bm{u} &= ( n ,\, m ,\, \gamma_{nn} ,\, \gamma_{mm} ,\, \gamma_{nm} ) 
+\end{align}
+The first change of variables exposes the AOs that are evaluated over the grid:
+\begin{gather}
+ \pder{}{N_{\nu\mu}} = \sum_i \pder{v_i}{N_{\nu\mu}}\dder{}{v_i} \\
+ \pder{n}{N_{\nu\mu}} = \chi^*_\mu(\vec{r}\,)\chi_\nu(\vec{r}\,) \quad;\quad
+ \pder{\grad n}{N_{\nu\mu}} = \grad(\chi^*_\mu(\vec{r}\,)\chi_\nu(\vec{r}\,))
+\end{gather}
+We must then evaluate the functional derivative in \cref{eq:Vxc} with respect to the $\bm{v}$ variables.
+This is also done by means of the chain rule, relating them back to the $\bm{u}$ variables:
+\begin{equation}
+ \dder{f}{v_i} = \sum_j \dder{u_j}{v_i}\dder{f}{u_j}
+\end{equation}
+Depending on the specific implementation of the functionals, an additional level of chain rule derivatives may be included at this point, according to \cref{eq:alphabeta}.
+\iffalse
+Some chain rule derivatives are trivial, we collect here some less immediate ones:
+\begin{gather*}
+ \dder{m}{\vec{m}} = \frac{\vec{m}}{m} \quad;\quad
+ \dder{\gamma_{nn}}{\grad n} = 2\grad n \quad;\quad
+ \dder{\gamma_{mm}}{\grad\vec{m}} = 2\grad \vec{m} \\
+ \dder{\gamma_{nm}}{\grad n} = f_\nabla\sqrt{(\grad n \cdot \grad\vec{m})\circ\grad\vec{m}} \quad;\quad
+ \dder{\gamma_{nm}}{\grad \vec{m}} = f_\nabla\sqrt{(\grad n \cdot \grad\vec{m}) \grad n}
+\end{gather*}
+\fi
+
+\subsection{Zero-Torque-Theorem}
+\co{Include proof of the ZTT for these definitions? Probably not, they did it already.}
 
 %%%%%%%%%%%%
 %SCF METHODS
